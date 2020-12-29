@@ -25,4 +25,12 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function see_pets()
+    {
+        return view('datos_mascota');
+    }
+    public function reservation_users()
+    {
+        return view('reservacion_by_usuario');
+    }
 }

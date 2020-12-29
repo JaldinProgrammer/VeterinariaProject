@@ -12,8 +12,9 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
 
-    public function PetsRegister()
+    public function see_users()
     {
-        return view('registro_mascotas');
+        return view('datos_usuario');
     }
+
 }

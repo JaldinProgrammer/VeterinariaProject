@@ -19,6 +19,6 @@ class AdminMiddleware
     {
         if (Auth::check() && Auth::user()->admin==1)
         return $next($request);
-        return redirect('/');
+        return redirect()->back();
     }
 }

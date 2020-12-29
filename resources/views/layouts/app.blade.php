@@ -47,15 +47,11 @@
                                 </li>
                             @endif
                             
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registro') }}</a>
-                                </li>
-                            @endif
                         @else
+                       
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{  Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -70,6 +66,33 @@
                                     </form>
                                 </div>
                             </li>
+                            <?php $customer = Auth::user()->customer ?>   
+                            @if ($customer)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('see_pets') }}">{{ __('Mascotas') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('reservation_users') }}">{{ __('Reservar') }}</a>
+                                </li>
+                            @endif
+                            <?php $veterinarian = Auth::user()->veterinarian ?>   
+                            @if ($veterinarian)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('reservation') }}">{{ __('Reservar') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('pets_register') }}">{{ __('Registrar mascotas') }}</a>
+                                </li>
+                            @endif
+                            <?php $admin = Auth::user()->admin ?>   
+                            @if ($admin)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('see_users') }}">{{ __('Usuarios') }}</a>
+                                </li>
+                            @endif
                         @endguest
                             <li class="nav-item">
                             <a href="{{route('recomendaciones')}}" class="nav-link">Recomendaciones</a>
