@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Storage;
 class RegisterController extends Controller
 {
     /*
@@ -38,7 +38,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('guest');
+       // $this->middleware('guest');
+        $this->middleware('admin');
     }
 
     /**
@@ -53,6 +54,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['string'],
+            'photo' => ['image','max:2048'],
+            'rol' => ['required']
         ]);
     }
 
@@ -64,10 +68,37 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $veterinario = 0;
+        $administrador = 0;
+        $cliente = 0;
+        //dd($data);
+        if ($_REQUEST['rol'] == "admin") {
+           $veterinario = 1;
+           $administrador = 1;   
+        }  
+        if ($_REQUEST['rol'] == "veter") {
+           $veterinario = 1;
+        }   
+        if ($_REQUEST['rol'] == "clien") {
+           $cliente = 1;
+        } 
+        if (count($data)>=8){ // si es que el usuario puso su photo seran 8 espacios
+         $perfil = $data['photo']->store('public/Images');
+         $url = Storage::url($perfil);
+        }
+        else{ // si es que photo esta vacias seran menos de 8s
+            $url = null;
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
+            'veterinarian' => $veterinario,
+            'admin' => $administrador,
+            'customer' => $cliente,
+            'photo' => $url,
             'password' => Hash::make($data['password']),
         ]);
+        
     }
 }

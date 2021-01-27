@@ -31,8 +31,16 @@ Route::get('login/reservaciones', [VeterinarianController::class,'reservation'])
 Route::get('login/registro-mascotas', [VeterinarianController::class,'pets_register'])->name('pets_register');
 
 Route::get('login/ver-usuarios', [AdminController::class,'see_users'])->name('see_users');
+Route::get('login/ver-usuarios-borrados', [AdminController::class,'see_Deleted_Users'])->name('see_Deleted_Users');
+Route::get('login/ver-usuarios-encontrados', [AdminController::class,'see_Searched_Users'])->name('see_Searched_Users');
+Route::get('login/ver-usuarios-clientes', [AdminController::class,'see_Customers'])->name('see_Customers');
+
+Route::get('login/editar-usuario/{id}', [AdminController::class,'edit_Users'])->name('edit_Users');
+Route::post('login/actualizar-usuario/{id}', [AdminController::class,'update_Users'])->name('update_Users');
+Route::get('login/delete-usuario/{id}', [AdminController::class,'disable_User'])->name('disable_User');
+Route::get('login/restaurar-usuario/{id}', [AdminController::class,'able_User'])->name('able_User');
+
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/login/pets', [HomeController::class, 'see_pets'])->name('see_pets');
 Route::get('/login/reservaciones-por-usuario', [HomeController::class, 'reservation_users'])->name('reservation_users');
-

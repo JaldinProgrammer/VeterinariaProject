@@ -1,21 +1,13 @@
 @extends('layouts.app')
 @section('content')
       <h3 class="display-3"> datos de usuario</h3>
-      {{-- BUSCADOR --}}
-      <form method="GET" class="form-inline ml-3" action="{{route('see_Searched_Users')}}">
-            <div class="input-group input-group-sm">
-                  <input type="search" class="form-control form-control-navbar" name="search" placeholder="Nombre Usuario">
-                  <div class="input-group-append">
-                        <button class="btn btn-dark" type="submit"> Buscar</button>
-                  </div>
-            </div>
-      </form>
       <div class="card" >
       <a href="{{route('register')}}" class="btn btn-info">Registrar nuevo usuario</a>
-      <a href="{{route('see_Deleted_Users')}}" class="btn btn-warning">ver usuarios borrados</a>
-      <a href="{{route('see_Customers')}}" class="btn btn-primary">ver clientes</a>
+      <a href="{{route('see_users')}}" class="btn btn-warning">ver lista de usuarios</a>
+
       <table class="table table-striped">
             <thead>
+
                   <th>Nombre</th>
                   <th>Phone</th>
                   <th>E - mail</th>
@@ -26,7 +18,7 @@
             <tbody>
                   @foreach ($usuarios as $usuario)
                       <tr>
-                          
+
                             <td>{{$usuario->name}}</td>
                             <td>{{$usuario->phone}}</td>     
                             <td>{{$usuario->email}}</td>
@@ -49,11 +41,9 @@
                             @endif
                             <td>
                               <a href="{{route('edit_Users',$usuario->id)}}"><button type="button" class="btn btn-warning">Editar</button></a>
-                              <a href="{{route('disable_User',$usuario->id)}}"><button type="button" class="btn btn-danger" onclick="return confirm('Seguro que quiere eliminar este usuario?')">Borrar</button></a>
-                              
-                              <a href="#"><button type="button" class="btn btn-outline-success btn-sm" onclick="return confirm('Seguro que quiere eliminar este usuario?')">Mascotas</button></a>
+                              <a href="{{route('able_User',$usuario->id)}}"><button type="button" class="btn btn-success" onclick="return confirm('Seguro que quiere restaurar este usuario?')">Restaurar</button></a>
                             </td>   
-                                      
+                                   
                       </tr>
                   @endforeach
             </tbody>
