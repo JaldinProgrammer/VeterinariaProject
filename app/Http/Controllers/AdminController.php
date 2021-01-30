@@ -13,15 +13,8 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
 
-    public function see_Searched_Users(Request $request){
-        if($request){
-            $query = trim($request->get('search'));
-            $usuarios = User::where('name','LIKE','%'.$query.'%')
-            ->orderBy('id','asc')->paginate(6);
-            return view('datos_usuario')->with('usuarios',$usuarios);
-        }
-    }
-    public function see_users()
+
+    public function see_users() // ver todos los usuarios disponibles
     {
         $usuarios = User::where('available','=','1')->orderby('id','DESC')->paginate(6);
 
@@ -29,7 +22,7 @@ class AdminController extends Controller
                 ->with('usuarios',$usuarios);
     }
     
-    public function see_Deleted_Users()
+    public function see_Deleted_Users() // ver usuarios borrados
     {
         $usuarios = User::where('available','=','0')->orderby('id','DESC')->paginate(6);
 
@@ -37,20 +30,11 @@ class AdminController extends Controller
                 ->with('usuarios',$usuarios);
     }
 
-    public function see_Customers()
-    {
-        $usuarios = User::where('customer','=','1')->where('available','=','1')
-                            ->orderby('id','DESC')->paginate(6);
-
-        return view('datos_usuario')
-                ->with('usuarios',$usuarios);
-    }
-
-    public function edit_Users($id)
+    public function edit_Users($id) // formulario de edicion usuarios
     {
         return view('editar_Usuarios', ['user' => User::findOrfail($id)]);
     }
-    public function update_Users(Request $request, $id)
+    public function update_Users(Request $request, $id) // actualizar usuarios 
     {
         $User = User::findOrFail($id);
 
@@ -87,17 +71,18 @@ class AdminController extends Controller
         return redirect()->route('see_users');
     }
 
-    public function disable_User($id){
+    public function disable_User($id){ // deshabilitar usuario
         $User = User::findOrFail($id);
         $User->available = 0;
         $User->update();
         return redirect()->route('see_users');
     }
 
-    public function able_User($id){
+    public function able_User($id){ // habilitar usuario
         $User = User::findOrFail($id);
         $User->available = 1;
         $User->update();
         return redirect()->route('see_Deleted_Users');
     }
+
 }

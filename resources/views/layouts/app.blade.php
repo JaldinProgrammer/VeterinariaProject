@@ -69,19 +69,14 @@
                             <?php $customer = Auth::user()->customer ?>   
                             @if ($customer)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('see_pets') }}">{{ __('Mascotas') }}</a>
+                                    <a class="nav-link" href="{{ route('show_pets',Auth::user()->id) }}">{{ __('Mascotas') }}</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('reservation_users') }}">{{ __('Reservar') }}</a>
-                                </li>
+                               
                             @endif
                             <?php $veterinarian = Auth::user()->veterinarian ?>   
-                            @if ($veterinarian)
+                            @if ($veterinarian && Auth::user()->admin == 0)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('reservation') }}">{{ __('Reservar') }}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('pets_register') }}">{{ __('Registrar mascotas') }}</a>
+                                    <a class="nav-link" href="{{ route('see_Customers') }}">{{ __('Ver Clientes') }}</a>
                                 </li>
                             @endif
                             <?php $admin = Auth::user()->admin ?>   

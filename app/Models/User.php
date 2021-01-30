@@ -61,4 +61,10 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function pets()
+    {
+        return $this->hasMany('App\Models\Pet');
+    }
+
 }

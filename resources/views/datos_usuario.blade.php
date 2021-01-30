@@ -11,9 +11,11 @@
             </div>
       </form>
       <div class="card" >
+      @if(Auth::user()->admin == 1)  
       <a href="{{route('register')}}" class="btn btn-info">Registrar nuevo usuario</a>
       <a href="{{route('see_Deleted_Users')}}" class="btn btn-warning">ver usuarios borrados</a>
       <a href="{{route('see_Customers')}}" class="btn btn-primary">ver clientes</a>
+      @endif
       <table class="table table-striped">
             <thead>
                   <th>Nombre</th>
@@ -48,10 +50,11 @@
                             <td>Cliente</td>
                             @endif
                             <td>
+                               @if(Auth::user()->admin == 1)   
                               <a href="{{route('edit_Users',$usuario->id)}}"><button type="button" class="btn btn-warning">Editar</button></a>
                               <a href="{{route('disable_User',$usuario->id)}}"><button type="button" class="btn btn-danger" onclick="return confirm('Seguro que quiere eliminar este usuario?')">Borrar</button></a>
-                              
-                              <a href="#"><button type="button" class="btn btn-outline-success btn-sm" onclick="return confirm('Seguro que quiere eliminar este usuario?')">Mascotas</button></a>
+                              @endif
+                              <a href="{{route('show_pets',$usuario->id)}}"><button type="button" class="btn btn-outline-success btn-sm">Mascotas</button></a>
                             </td>   
                                       
                       </tr>
