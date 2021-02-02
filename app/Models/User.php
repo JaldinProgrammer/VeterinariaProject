@@ -67,4 +67,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Pet');
     }
 
+    public function Visits()
+    {
+        return $this->hasMany('App\Models\Visit');
+    }
+
 }

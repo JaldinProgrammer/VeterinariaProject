@@ -5,6 +5,8 @@ use App\Http\Controllers\VeterinarianController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PetController;
+use App\Http\Controllers\TreatmentController;
+use App\Http\Controllers\VisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +56,24 @@ Route::get('/login/Crear-mascotas/{id}', [PetController::class, 'index'])->name(
 Route::post('/login/registrar-mascota', [PetController::class, 'create'])->name('create_pets');
 Route::post('login/actualizar-mascota/{id}', [PetController::class,'update'])->name('update_pets');
 Route::get('login/borrar-mascota/{id}', [PetController::class,'destroy'])->name('delete_pets');
+
+
+Route::get('registrar_tratamiento/{id}', [TreatmentController::class,'index'])->name('register_treatment');
+Route::get('historial_clinico/{pet}', [TreatmentController::class,'show_treatment'])->name('show_treatment');
+Route::post('Crear_tratamiento', [TreatmentController::class,'create'])->name('create_treatment');
+Route::get('Editar_tratamiento/{id}', [TreatmentController::class,'edit_treatment'])->name('edit_treatment');
+Route::post('Actualizar_tratamiento/{id}', [TreatmentController::class,'update_treatment'])->name('update_treatment');
+Route::get('Borrar_tratamiento/{id}', [TreatmentController::class,'destroy'])->name('destroy_treatment');
+
+Route::get('mostrar_visita/{id}', [VisitController::class,'show_visits'])->name('show_visits');
+Route::get('registrar_visita/{id}', [VisitController::class,'index'])->name('register_visit');
+Route::post('crear_visita', [VisitController::class,'create'])->name('create_visit');
+Route::get('editar_visita/{id}', [VisitController::class,'edit'])->name('edit_visit');
+Route::post('actualizar_visita/{id}', [VisitController::class,'update'])->name('update_visit');
+Route::get('borrar_visita/{id}', [VisitController::class,'destroy'])->name('delete_visit');
+
+
+
+
+
 

@@ -7,24 +7,11 @@ use App\Models\User;
 
 use App\Models\Breed;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 
 class PetController extends Controller
 {
-
-
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'gender' => ['string','required'],
-            'photo' => ['image','max:2048'],
-            'birthdate' => ['required'],
-            'color' => ['required'],
-        ]);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +32,15 @@ class PetController extends Controller
      */
     public function create(Request $request)
     {
-       // dd($request); //->file()==null
+       
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required'],
+            'photo' => ['image','max:2048'],
+            'birthdate' => ['required'],
+            'color' => ['required'],
+        ]);
+
         if($request->file()==null){
             $url = null;
         }
@@ -65,49 +60,14 @@ class PetController extends Controller
         ]);
         return redirect()->route('show_pets',$request['user_id']);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pet $pet)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pet $pet)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required'],
+            'photo' => ['image','max:2048'],
+            'color' => ['required'],
+        ]);
         $pet = Pet::findOrFail($id);
 
         if($request->file()==null){

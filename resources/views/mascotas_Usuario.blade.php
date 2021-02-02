@@ -40,12 +40,16 @@
                     <td><img src="{{ asset($pet->photo)}}" class="img-fluid" alt="Responsive image" width="60" height="70">
                     </td>
                     @endif  
-                    @if(Auth::user()->admin == 1) 
+                              
+                    @if(Auth::user()->veterinarian == 1) 
                     <td>
+                        @if(Auth::user()->admin == 1) 
                         <a href="{{route('edit_pets',$pet->id)}}"><button type="button" class="btn btn-warning">Editar</button></a>        
                         <a href="{{route('delete_pets',$pet->id)}}"><button type="button" class="btn btn-danger"  onclick="return confirm('Seguro que quiere eliminar esta mascota?')">Borrar</button></a>        
-                    </td>                    
-                    @endif 
+                        @endif
+                        <a href="{{route('show_treatment',$pet->id)}}"><button type="button" class="btn btn-success">Historial clinico</button></a>        
+                    </td>
+                    @endif
               </tr>
           @endforeach
     </tbody>

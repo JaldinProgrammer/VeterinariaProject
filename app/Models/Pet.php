@@ -19,7 +19,7 @@ class Pet extends Model
         'breed_id',
         'user_id'
     ];
-
+//xdxddd
     public function breed()
     {
         return  $this->belongsTo('App\Models\Breed');
@@ -28,5 +28,10 @@ class Pet extends Model
     public function user()
     {
         return  $this->belongsTo('App\Models\User');
+    }
+
+    public function treatments()
+    {
+        return  $this->hasMany('App\Models\Treatment');
     }
 }

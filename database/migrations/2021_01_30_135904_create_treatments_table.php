@@ -15,6 +15,12 @@ class CreateTreatmentsTable extends Migration
     {
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
+            $table->text('diagnostic');
+            $table->date('initdate');
+            $table->date('enddate')->nullable();
+            $table->float('price')->nullable();
+            $table->integer('visit')->nullable();
+            $table->foreignId('pet_id')->constrained('pets');
             $table->timestamps();
         });
     }

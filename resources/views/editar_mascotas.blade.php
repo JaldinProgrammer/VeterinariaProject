@@ -15,7 +15,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $pet->nombre }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $pet->nombre }}" >
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
                             <label for="color" class="col-md-4 col-form-label text-md-right">{{ __('Color') }}</label>
 
                             <div class="col-md-6">
-                                <input id="color" type="text" class="form-control @error('color') is-invalid @enderror" name="color" value="{{ $pet->color }}" required autocomplete="color" autofocus>
+                                <input id="color" type="text" class="form-control @error('color') is-invalid @enderror" name="color" value="{{ $pet->color }}">
 
                                 @error('color')
                                     <span class="invalid-feedback" role="alert">
@@ -56,7 +56,7 @@
                             <label for="birthdate" class="col-md-4 col-form-label text-md-right">{{ __('Fecha de nacimiento') }}</label>
 
                             <div class="col-md-6">
-                                <input id="birthdate" type="date"  class="form-control @error('birthdate') is-invalid @enderror" name="birthdate" value="{{ $pet->birthdate }}" required autocomplete="birthdate" autofocus>
+                                <input id="birthdate" type="date"  class="form-control @error('birthdate') is-invalid @enderror" name="birthdate" value="{{ $pet->birthdate }}" >
 
                                 @error('birthdate')
                                     <span class="invalid-feedback" role="alert">
