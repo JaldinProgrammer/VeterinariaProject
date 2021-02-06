@@ -54,9 +54,13 @@ class AdminController extends Controller
     
         } 
         //dd($request->file('photo'));
+        if($request->file('photo')==null){
+            $url = null;
+        }
+        else{
          $perfil =$request->file('photo')->store('public/Images');
          $url = Storage::url($perfil);
-         
+        }
         $User->name = $request->get('name');
         $User->photo = $url;
         $User->email = $request->get('email');

@@ -41,7 +41,7 @@ class PetController extends Controller
             'color' => ['required'],
         ]);
 
-        if($request->file()==null){
+        if($request->file('photo')==null){
             $url = null;
         }
         else{
@@ -70,7 +70,7 @@ class PetController extends Controller
         ]);
         $pet = Pet::findOrFail($id);
 
-        if($request->file()==null){
+        if($request->file('photo')==null){
             $url = null;
         }
         else{
@@ -101,8 +101,14 @@ class PetController extends Controller
     public function destroy($id)
     {
         $pet = Pet::findOrFail($id);
+        if($pet->treatments()->count() > 0){
+            return back()->withErrors(['error' => 'Usted no puede borrar a esta mascota 
+            porque cuenta con tratamientos dentro, porfavor primero borre todos los tratamientos']);
+        }
+        else{
         $owner = $pet->user_id;
         $pet->delete();
         return redirect()->route('show_pets',$owner);
+        }
     }
 }

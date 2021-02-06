@@ -44,6 +44,24 @@
                                     @enderror
                                 </div>
                             </div>     
+                            {{-- servicio --}}
+                            <div class="form-group row">
+                                <label for="service_id" class="col-md-4 col-form-label text-md-right">{{ __('Servicio') }}</label>
+                                <div class="col-md-6">
+                                    <select name="service_id" id="service_id">
+                                        <option value="">--selecciona el servicio--</option>
+                                       @foreach ($services as $service)                                        
+                                       <option value="{{$service->id}}">{{$service->name}}</option>                                    
+                                       @endforeach 
+                                    </select>
+                                    @error('service_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            
                         <input type="hidden" name="treatment_id" value="{{$treatment->id}}">     
                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">                                                 
                         <div class="form-group row mb-0">

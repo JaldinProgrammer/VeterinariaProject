@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
-<h1>{{$treatment->diagnostic}}</h1>
+<h1>{{"TRATAMIENTO: ".$treatment->diagnostic}}</h1>
 <a href="{{route('register_visit',$treatment->id)}}"><button type="button" class="btn btn-success">Nueva visita</button></a>        
 <table class="table table-striped">
     <thead>
           <th>Descripcion</th>
+          <th>Servicio</th>
           <th>Fecha</th>
           <th>Hora</th>
           <th>Medico</th>
@@ -14,6 +15,7 @@
         @foreach ($visits as $visit)
            <tr>
                 <td>{{$visit->description}}</td>
+                <td>{{$visit->service->name}}</td>
                 <td>{{$visit->date}}</td>
                 <td>{{$visit->time}}</td>
                 <td>{{"Vet. ". $visit->user->name}}</td>

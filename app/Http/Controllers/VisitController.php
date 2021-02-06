@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Treatment;
 use App\Models\Visit;
+use App\Models\Service;
 
 
 class VisitController extends Controller
@@ -17,20 +18,20 @@ class VisitController extends Controller
         $treatment = Treatment::findOrFail($id);
         $visits = Visit::where('treatment_id','=',$id)
         ->orderby('date','ASC')->get()->load('user')->load('treatment');
-        //dd($visits);
         return view('mostrar_visitas',compact('visits'), compact('treatment'));
     }
 
     public function index($id){ //registrar visita
         $treatment = Treatment::findOrFail($id);
-       // dd($treatment);
-        return view('registrar_visitas',compact('treatment'));
+        $services = Service::all();
+        return view('registrar_visitas',compact('treatment'),compact('services'));
     }
     public function create(Request $request){
         $request->validate([
             'description' => ['required', 'string', 'max:255'],
             'date' => ['required'],
             'time' => ['required'],
+            'service_id' => ['required'],
         ]);
         $id = $request['treatment_id'];
         Visit::create([
@@ -39,13 +40,14 @@ class VisitController extends Controller
             'time' => $request['time'],
             'treatment_id' => $request['treatment_id'],
             'user_id' => $request['user_id'],
+            'service_id' => $request['service_id'],
         ]);
         return redirect()->route('show_visits', $id);
     }
     public function edit($id){
         $visit = Visit::findOrFail($id);
-        //dd($visit);
-        return view('Editar_Visita',compact('visit'));
+        $services = Service::all();
+        return view('Editar_Visita',compact('visit'), compact('services'));
     }
 
     public function update(Request $request, $id){
@@ -53,11 +55,14 @@ class VisitController extends Controller
             'description' => ['required', 'string', 'max:255'],
             'date' => ['required'],
             'time' => ['required'],
+            'service_id' => ['required'],
         ]);
         $visit = Visit::findOrFail($id);
         $visit->description = $request->get('description');
         $visit->date = $request->get('date');
         $visit->time = $request->get('time');
+        $visit->service_id = $request->get('service_id');
+
         $visit->update();
 
         return redirect()->route('show_visits',$visit->treatment_id);

@@ -1,6 +1,15 @@
 @extends('layouts.app')
 @section('content')
 <h1>{{"Historial Clinico de : ".$pet->nombre}}</h1>
+@if ($errors->count() > 0)
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <a href="{{route('register_treatment',$pet->id)}}"><button type="button" class="btn btn-success">Nuevo tratamiento</button></a>        
 <table class="table table-striped">
     <thead>

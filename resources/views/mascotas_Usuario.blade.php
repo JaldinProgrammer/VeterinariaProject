@@ -1,6 +1,16 @@
 @extends('layouts.app')
 @section('content')
 <h2> {{"Mascotas de : ". $usuario->name}}</h2>
+
+@if ($errors->count() > 0)
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 @if(Auth::user()->admin == 1)
 <br>
 <a href="{{route('registrar_pets',$usuario->id)}}" class="btn btn-info">Registrar nueva mascota</a>

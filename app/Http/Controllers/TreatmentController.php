@@ -54,14 +54,20 @@ class TreatmentController extends Controller
         $tratamiento->enddate = $request->get('enddate');
         $tratamiento->update();
         $treatments = Treatment::where('pet_id','=',$tratamiento->pet_id)->get();
-        return view('Historial_Tratamiento',compact('treatments'),compact('pet'));
+            return redirect()->route('show_treatment',$pet->id);
     }
 
-    public function destroy($id){
+    public function destroy($id){ //borrar tratamiento
         $tratamiento = Treatment::findOrFail($id);
+        if($tratamiento->visits()->count() > 0){
+            return back()->withErrors(['error' => 'Usted no puede borrar este tratamiento 
+            porque cuenta con visitas dentro, porfavor primero borre las visitas']);
+        }
+        else{
         $pet = $tratamiento->pet_id;
         $tratamiento->delete();
         return redirect()->route('show_treatment',$pet);
+        }
     }
 }
 

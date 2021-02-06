@@ -14,6 +14,7 @@ class Visit extends Model
         'time',
         'treatment_id',
         'user_id',
+        'service_id',
     ];
     public function treatment()
     {
@@ -23,5 +24,10 @@ class Visit extends Model
     public function user()
     {
         return  $this->belongsTo('App\Models\User');
+    }
+
+    public function service()
+    {
+        return  $this->belongsTo('App\Models\Service');
     }
 }

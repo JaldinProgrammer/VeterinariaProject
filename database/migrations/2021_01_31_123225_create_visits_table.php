@@ -20,6 +20,7 @@ class CreateVisitsTable extends Migration
             $table->time('time');
             $table->foreignId('treatment_id')->constrained('treatments');
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('service_id')->constrained('services');
             $table->timestamps();
         });
     }
