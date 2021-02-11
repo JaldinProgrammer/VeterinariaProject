@@ -16,8 +16,8 @@
            <tr>
                 <td>{{$visit->description}}</td>
                 <td>{{$visit->service->name}}</td>
-                <td>{{$visit->date}}</td>
-                <td>{{$visit->time}}</td>
+                <td>{{$visit->date->toFormattedDateString()}}</td>
+                <td>{{$visit->time->diffForHumans()}}</td>
                 <td>{{"Vet. ". $visit->user->name}}</td>
                 <td>
                     <a href="{{route('edit_visit',$visit->id)}}"><button type="button" class="btn btn-warning">Editar</button></a>

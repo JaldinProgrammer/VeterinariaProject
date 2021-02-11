@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Service;
 use Illuminate\Support\Facades\Storage;
+
 class AdminController extends Controller
 {
     public function __construct()
     {
         $this->middleware('admin');
     }
-
-
+    
     public function see_users() // ver todos los usuarios disponibles
     {
         $usuarios = User::where('available','=','1')->orderby('id','DESC')->paginate(6);
@@ -53,7 +54,6 @@ class AdminController extends Controller
            $cliente = 1;;
     
         } 
-        //dd($request->file('photo'));
         if($request->file('photo')==null){
             $url = null;
         }
@@ -87,6 +87,61 @@ class AdminController extends Controller
         $User->available = 1;
         $User->update();
         return redirect()->route('see_Deleted_Users');
+    }
+
+    public function register_Services(){ // formulario de registro de servicio
+        return view('register_Services');
+    }
+
+    public function create_Service(Request $request){ // crear servicio
+        $reservable = ($request['reservable'])? 1:0;
+        $available = ($request['available'])? 1:0;
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+        Service::create([
+            'name' => $request['name'],
+            'reservable' => $reservable,
+            'available' => $available,
+        ]);
+        return redirect()->route('show_Services');
+    }
+
+    public function show_Services(){ // mostrar todos los servicios
+        $services = Service::paginate(5);
+        return view('mostrar_servicios',compact('services'));
+    }
+
+    public function edit_service($id){ // formulario de edicion servicio
+        $service = Service::findOrFail($id);  
+        return view('editar_Servicios',compact('service'));
+    }
+
+    public function update_Service(Request $request, $id){ //actualizar servicio
+        $reservable = ($request['reservable'])? 1:0;
+        $available = ($request['available'])? 1:0;
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+        $services = Service::findOrFail($id);
+        $services->name = $request->get('name');
+        $services->reservable = $reservable; 
+        $services->available = $available;
+        $services->update();
+        return redirect()->route('show_Services');
+    }
+
+    public function delete_service($id){  // borrar servicio
+        $service = Service::findOrFail($id);
+        if(($service->visits()->count()+ $service->reservations()->count() ) > 0){
+            return back()->withErrors(['error' => 'Usted no puede borrar a este servicio 
+            porque existen visitas ocupando este servicio, borre las visitas que involucran a este servicio
+            si desea borrarlo']);
+        }
+        else{
+        $service->delete();
+        return redirect()->route('show_Services');
+        }
     }
 
 }

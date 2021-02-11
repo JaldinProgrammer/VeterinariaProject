@@ -50,11 +50,14 @@
                         @else
                        
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{route('home')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{  Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                     {{ __('Perfil') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -73,10 +76,15 @@
                                 </li>
                                
                             @endif
-                            <?php $veterinarian = Auth::user()->veterinarian ?>   
-                            @if ($veterinarian && Auth::user()->admin == 0)
+                           
+                            @if (Auth::user()->veterinarian)
+                                @if(Auth::user()->admin == 0)
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('see_Customers') }}">{{ __('Ver Clientes') }}</a>
+                                </li>
+                                @endif
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('show_all_reservations') }}">{{ __('ver reservas') }}</a>
                                 </li>
                             @endif
                             <?php $admin = Auth::user()->admin ?>   
@@ -84,8 +92,22 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('see_users') }}">{{ __('Ver usuarios') }}</a>
                                 </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Panel de control
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                      <a class="dropdown-item" href="{{ route('show_Services') }}">Servicios</a>
+                                      <a class="dropdown-item" href="{{ route('showBreeds') }}">Razas</a>
+                                      <a class="dropdown-item" href="{{ route('show_species') }}">Especies</a>
+                                      <a class="dropdown-item" href="{{ route('all_bargains') }}">Ofertas</a>
+                                    </div>
+                                </li>
                             @endif
                         @endguest
+                            <li class="nav-item">
+                            <a href="{{route('showAvailableBargains')}}" class="nav-link">Ofertas</a>
+                            </li>
                             <li class="nav-item">
                             <a href="{{route('recomendaciones')}}" class="nav-link">Recomendaciones</a>
                             </li>

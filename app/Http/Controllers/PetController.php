@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use App\Models\User;
-
+use App\Models\Specie;
 use App\Models\Breed;
+use Facade\Ignition\DumpRecorder\DumpHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +18,12 @@ class PetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    } 
+    public function index($id) // formulario de registro de mascota
     {
         $usuario = User::find($id);
         $breeds = Breed::orderby('specie_id','DESC')->get();
@@ -30,7 +36,7 @@ class PetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request) // crear mascota
     {
        
         $request->validate([
@@ -60,7 +66,7 @@ class PetController extends Controller
         ]);
         return redirect()->route('show_pets',$request['user_id']);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) // actialozar mascota
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -98,10 +104,10 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) //eliminar mascota
     {
         $pet = Pet::findOrFail($id);
-        if($pet->treatments()->count() > 0){
+        if(($pet->treatments()->count() + $pet->reservations()->count()) > 0){
             return back()->withErrors(['error' => 'Usted no puede borrar a esta mascota 
             porque cuenta con tratamientos dentro, porfavor primero borre todos los tratamientos']);
         }
@@ -109,6 +115,112 @@ class PetController extends Controller
         $owner = $pet->user_id;
         $pet->delete();
         return redirect()->route('show_pets',$owner);
+        }
+    }
+
+    public function showBreeds(){ // mostrar razas
+        $breeds = Breed::paginate(10);
+        $breeds->load("specie");
+       return view('mostrar_razas', compact('breeds'));
+    }
+
+    public function register_Breed(){ // registrar una raza
+        $species = Specie::all();
+        return view('registrar_raza',compact('species'));
+    }
+
+    public function create_Breed(Request $request){ // crear raza
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'species' => ['required'],
+        ]);
+        
+        Breed::create([
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'specie_id' => $request['species'],
+        ]);
+        
+        return redirect()->route('showBreeds');
+    }
+
+    public function edit_Breed($id){ // formulario para editar raza
+        $breed = Breed::findOrFail($id);
+        $species = Specie::all();
+        return view('editar_raza', compact('breed'), compact('species'));
+    }
+
+    public function update_Breed(Request $request, $id){ //actualizar raza
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'species' => ['required'],
+        ]);
+        $breed = Breed::findOrFail($id);
+        $breed->name = $request['name'];
+        $breed->description = $request['description'];
+        $breed->specie_id = $request['species'];
+
+        $breed->update();
+
+        return redirect()->route('showBreeds');
+    }
+
+    public function delete_breed($id){ // borrar raza
+        $breed = Breed::findOrFail($id);
+        if($breed->pets()->count() > 0){
+            return back()->withErrors(['error' => 'Usted no puede borrar este raza 
+            porque cuenta con mascotas registradas']);
+        }
+        else{
+            $breed->delete();
+            return redirect()->route('showBreeds');
+        }
+    }
+
+    public function show_species(){ // mostrar especie
+        $species = Specie::paginate(6);
+        return view('mostrar_especies', compact('species'));
+    }
+
+    public function register_specie(){ // registrar especie
+        return view('registrar_especie');
+    }
+
+    public function create_specie(Request $request){
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+        Specie::create([
+            'name' => $request['name'],
+        ]);
+        return redirect()->route('show_species');
+    }
+    
+    public function edit_specie($id){
+        $specie = Specie::findOrFail($id);
+        return view('editar_especie', compact('specie'));
+    }
+
+    public function update_specie(Request $request, $id){
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+        $specie = Specie::findOrFail($id);
+        $specie->name = $request['name'];
+        $specie->update();
+
+        return redirect()->route('show_species');
+    }
+
+    public function delete_specie($id){
+        $specie = Specie::findOrFail($id);
+        if($specie->breeds()->count() > 0){
+            return back()->withErrors(['error' => 'Usted no puede borrar esta especie 
+            porque cuenta con razas registradas']);
+        }
+        else{
+            $specie->delete();
+            return redirect()->route('show_species');
         }
     }
 }

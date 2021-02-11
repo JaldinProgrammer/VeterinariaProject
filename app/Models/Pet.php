@@ -19,7 +19,9 @@ class Pet extends Model
         'breed_id',
         'user_id'
     ];
-//xdxddd
+
+    protected $dates = ['created_at', 'updated_at', 'birthdate','deathdate'];
+
     public function breed()
     {
         return  $this->belongsTo('App\Models\Breed');
@@ -33,5 +35,10 @@ class Pet extends Model
     public function treatments()
     {
         return  $this->hasMany('App\Models\Treatment');
+    }
+    
+    public function reservations()
+    {
+        return  $this->hasMany('App\Models\Reservation');
     }
 }

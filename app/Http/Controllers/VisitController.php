@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Treatment;
 use App\Models\Visit;
 use App\Models\Service;
+use \Carbon\Carbon;
 
 
 class VisitController extends Controller
@@ -13,6 +14,7 @@ class VisitController extends Controller
     public function __construct()
     {
         $this->middleware('veterinarian');
+        Carbon::setLocale('es');
     }
     public function show_visits($id){
         $treatment = Treatment::findOrFail($id);

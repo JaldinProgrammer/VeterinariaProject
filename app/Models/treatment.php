@@ -16,6 +16,8 @@ class Treatment extends Model
         'visit',
         'price',
     ];
+        protected $dates = ['created_at', 'updated_at', 'initdate','enddate'];
+
     public function pet()
     {
         return  $this->belongsTo('App\Models\Pet');
@@ -26,6 +28,10 @@ class Treatment extends Model
         return $this->hasMany('App\Models\Visit');
     }
 
+    public function notifications()
+    {
+        return $this->hasMany('App\Models\Notification');
+    }
     
 
 }
