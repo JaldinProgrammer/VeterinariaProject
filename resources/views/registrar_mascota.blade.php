@@ -102,7 +102,7 @@
                                    @foreach ($breeds as $breed)                                        
                                    <option value="{{$breed->id}}">{{$breed->specie->name." -> ".$breed->name}}</option>                                    
                                    @endforeach 
-                                </select>
+                                </select> 
                                 @error('breed')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

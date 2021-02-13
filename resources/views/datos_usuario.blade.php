@@ -16,6 +16,7 @@
       <a href="{{route('see_Deleted_Users')}}" class="btn btn-warning">ver usuarios borrados</a>
       <a href="{{route('see_Customers')}}" class="btn btn-primary">ver clientes</a>
       @endif
+      
       <table class="table table-striped">
             <thead>
                   <th>Nombre</th>
@@ -27,8 +28,7 @@
             </thead>
             <tbody>
                   @foreach ($usuarios as $usuario)
-                      <tr>
-                          
+                      <tr>                    
                             <td>{{$usuario->name}}</td>
                             <td>{{$usuario->phone}}</td>     
                             <td>{{$usuario->email}}</td>

@@ -39,6 +39,7 @@ Route::get('login/registro-mascotas', [VeterinarianController::class, 'pets_regi
 Route::get('login/editar-mascotas/{id}', [VeterinarianController::class, 'edit_pets'])->name('edit_pets');
 Route::get('login/ver-usuarios-clientes', [VeterinarianController::class, 'see_Customers'])->name('see_Customers');
 Route::get('login/ver-usuarios-encontrados', [VeterinarianController::class, 'see_Searched_Users'])->name('see_Searched_Users');
+Route::get('login/ver-usuarios-veterinarios', [VeterinarianController::class, 'see_Veterinarians'])->name('see_Veterinarians');
 
 
 Route::get('login/ver-usuarios', [AdminController::class, 'see_users'])->name('see_users');
@@ -53,6 +54,9 @@ Route::post('login/crear_servicio', [AdminController::class, 'create_Service'])-
 Route::get('login/editar_servicio/{id}', [AdminController::class, 'edit_service'])->name('edit_service');
 Route::post('login/actualizar_servicio/{id}', [AdminController::class, 'update_Service'])->name('update_Service');
 Route::get('login/borrar_servicio/{id}', [AdminController::class, 'delete_service'])->name('delete_service');
+Route::get('login/mostrar-por-rol', [AdminController::class, 'search_per_rol'])->name('search_per_rol');
+Route::get('mascotas/mostrar_todas', [AdminController::class, 'all_Pets'])->name('all_Pets');
+Route::get('mascotas/buscar', [AdminController::class, 'see_Searched_Pets'])->name('see_Searched_Pets');
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -66,18 +70,18 @@ Route::get('/login/Crear-mascotas/{id}', [PetController::class, 'index'])->name(
 Route::post('/login/registrar-mascota', [PetController::class, 'create'])->name('create_pets');
 Route::post('login/actualizar-mascota/{id}', [PetController::class, 'update'])->name('update_pets');
 Route::get('login/borrar-mascota/{id}', [PetController::class, 'destroy'])->name('delete_pets');
-Route::get('login/razas', [PetController::class, 'showBreeds'])->name('showBreeds');
-Route::get('login/registrar_raza', [PetController::class, 'register_Breed'])->name('register_Breed');
-Route::post('login/crear_raza', [PetController::class, 'create_Breed'])->name('create_Breed');
-Route::get('login/editar_raza/{id}', [PetController::class, 'edit_breed'])->name('edit_breed');
-Route::post('login/actualizar_raza/{id}', [PetController::class, 'update_breed'])->name('update_breed');
-Route::get('login/eliminar_raza/{id}', [PetController::class, 'delete_breed'])->name('delete_breed');
-Route::get('login/especies', [PetController::class, 'show_species'])->name('show_species');
-Route::get('login/registrar_especie', [PetController::class, 'register_specie'])->name('register_specie');
-Route::post('login/crear-especie', [PetController::class, 'create_specie'])->name('create_specie');
-Route::get('login/editar-especie/{id}', [PetController::class, 'edit_specie'])->name('edit_specie');
-Route::post('login/actualizar-especie/{id}', [PetController::class, 'update_specie'])->name('update_specie');
-Route::get('login/eliminar-especie/{id}', [PetController::class, 'delete_specie'])->name('delete_specie');
+Route::get('login/razas', [PetController::class, 'showBreeds'])->name('showBreeds')->middleware('admin');
+Route::get('login/registrar_raza', [PetController::class, 'register_Breed'])->name('register_Breed')->middleware('admin');
+Route::post('login/crear_raza', [PetController::class, 'create_Breed'])->name('create_Breed')->middleware('admin');
+Route::get('login/editar_raza/{id}', [PetController::class, 'edit_breed'])->name('edit_breed')->middleware('admin');
+Route::post('login/actualizar_raza/{id}', [PetController::class, 'update_breed'])->name('update_breed')->middleware('admin');
+Route::get('login/eliminar_raza/{id}', [PetController::class, 'delete_breed'])->name('delete_breed')->middleware('admin');
+Route::get('login/especies', [PetController::class, 'show_species'])->name('show_species')->middleware('admin');
+Route::get('login/registrar_especie', [PetController::class, 'register_specie'])->name('register_specie')->middleware('admin');
+Route::post('login/crear-especie', [PetController::class, 'create_specie'])->name('create_specie')->middleware('admin');
+Route::get('login/editar-especie/{id}', [PetController::class, 'edit_specie'])->name('edit_specie')->middleware('admin');
+Route::post('login/actualizar-especie/{id}', [PetController::class, 'update_specie'])->name('update_specie')->middleware('admin');
+Route::get('login/eliminar-especie/{id}', [PetController::class, 'delete_specie'])->name('delete_specie')->middleware('admin');
 
 
 
@@ -96,22 +100,23 @@ Route::post('actualizar_visita/{id}', [VisitController::class, 'update'])->name(
 Route::get('borrar_visita/{id}', [VisitController::class, 'destroy'])->name('delete_visit');
 
 Route::post('reservacion_mostrar/{id}', [ReservationController::class, 'show'])->name('show_periods');
-Route::get('registrar_reserva/{pet}/{period}/{date}', [ReservationController::class, 'register'])->name('register_reservation');
-Route::post('crear_reservacion', [ReservationController::class, 'create'])->name('create_reservation');
+Route::get('registrar_reserva/{pet}/{period}/{date}', [ReservationController::class, 'register'])->name('register_reservation')->middleware('veterinarian');
+Route::post('crear_reservacion', [ReservationController::class, 'create'])->name('create_reservation')->middleware('veterinarian');
 Route::get('mostrar_reservaciones', [ReservationController::class, 'show_all'])->name('show_all_reservations')->middleware('veterinarian');
 Route::get('desactivar_reservaciones/{id}', [ReservationController::class, 'inactive'])->name('inactive_reservation');
+Route::get('reservaciones/search', [ReservationController::class, 'search_per_date'])->name('search_per_date');
 
-Route::get('ofertas/todas-las-ofertas', [BargainController::class, 'showAll'])->name('all_bargains')->middleware('veterinarian');
-Route::get('ofertas/registrar', [BargainController::class, 'bargainForm'])->name('bargainForm')->middleware('veterinarian');
-Route::post('ofertas/crear', [BargainController::class, 'create'])->name('create_bargain')->middleware('veterinarian');
-Route::get('ofertas/editar/{id}', [BargainController::class, 'edit'])->name('edit_bargain')->middleware('veterinarian');
-Route::post('ofertas/actualizar/{id}', [BargainController::class, 'update'])->name('update_bargain')->middleware('veterinarian');
-Route::get('ofertas/borrar/{id}', [BargainController::class, 'destroy'])->name('destroy_bargain')->middleware('veterinarian');
+Route::get('ofertas/todas-las-ofertas', [BargainController::class, 'showAll'])->name('all_bargains')->middleware('admin');
+Route::get('ofertas/registrar', [BargainController::class, 'bargainForm'])->name('bargainForm')->middleware('admin');
+Route::post('ofertas/crear', [BargainController::class, 'create'])->name('create_bargain')->middleware('admin');
+Route::get('ofertas/editar/{id}', [BargainController::class, 'edit'])->name('edit_bargain')->middleware('admin');
+Route::post('ofertas/actualizar/{id}', [BargainController::class, 'update'])->name('update_bargain')->middleware('admin');
+Route::get('ofertas/borrar/{id}', [BargainController::class, 'destroy'])->name('destroy_bargain')->middleware('admin');
 Route::get('ofertas', [BargainController::class, 'showAvailable'])->name('showAvailableBargains');
 
-Route::get('notificaciones/{id}', [NotificationController::class, 'index'])->name('register_notification');
-Route::post('notificaciones/crear', [NotificationController::class, 'create'])->name('create_notification');
+Route::get('notificaciones/{id}', [NotificationController::class, 'index'])->name('register_notification')->middleware('veterinarian');
+Route::post('notificaciones/crear', [NotificationController::class, 'create'])->name('create_notification')->middleware('veterinarian');
 Route::get('notificaciones/ver_notificaciones/{id}', [NotificationController::class, 'see_all'])->name('see_all_notification');
-Route::get('notificaciones/editar/{id}', [NotificationController::class, 'edit'])->name('edit_notification');
-Route::post('notificaciones/actualizar/{id}', [NotificationController::class, 'update'])->name('update_notification');
-Route::get('notificaciones/borrar/{id}', [NotificationController::class, 'delete'])->name('delete_notification');
+Route::get('notificaciones/editar/{id}', [NotificationController::class, 'edit'])->name('edit_notification')->middleware('veterinarian');
+Route::post('notificaciones/actualizar/{id}', [NotificationController::class, 'update'])->name('update_notification')->middleware('veterinarian');
+Route::get('notificaciones/borrar/{id}', [NotificationController::class, 'delete'])->name('delete_notification')->middleware('veterinarian');

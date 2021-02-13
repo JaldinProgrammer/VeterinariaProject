@@ -71,4 +71,15 @@ class ReservationController extends Controller
         $reservation->update();
         return redirect()->route('see_reservations',$user->user_id);
     }
+
+    public function search_per_date(Request $request){
+        if($request){
+            $reservations = Reservation::where('date',$request->get('search'))->paginate(5);
+            $reservations->load('user');
+            $reservations->load('pet');
+            $reservations->load('period');
+            $reservations->load('service');
+            return view('mostrar_reservaciones', compact('reservations'));
+        }
+    }
 }

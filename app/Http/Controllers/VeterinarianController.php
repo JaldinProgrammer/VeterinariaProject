@@ -39,6 +39,15 @@ class VeterinarianController extends Controller
         return view('datos_usuario')
                 ->with('usuarios',$usuarios);
     }
+
+    public function see_Veterinarians() // ver clientes
+    {
+        $usuarios = User::where('veterinarian','=','1')->where('available','=','1')
+                            ->orderby('id','DESC')->paginate(6);
+        return view('datos_usuario')
+                ->with('usuarios',$usuarios);
+    }
+
     public function see_Searched_Users(Request $request){ // buscador de usuarios
         if($request){
             $query = trim($request->get('search'));

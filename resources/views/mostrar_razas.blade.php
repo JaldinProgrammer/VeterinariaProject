@@ -11,6 +11,7 @@
 </div>
 @endif
 
+
 <a href="{{route('register_Breed')}}"><button type="button" class="btn btn-success btn-lg btn-block">Nueva raza</button></a>
 <table class="table table-striped">
     <thead>

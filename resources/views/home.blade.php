@@ -28,6 +28,7 @@
                             <li class="list-group-item">{{"Rol: ". $rol}}</li>
                             <li class="list-group-item"><a href="{{route('see_reservations',Auth::user()->id)}}"><button type="button" class="btn btn-primary">Ver mis reservas</button></a></li>
                             <li class="list-group-item"><a href="{{route('see_notifications',Auth::user()->id)}}"><button type="button" class="btn btn-success">Ver mis notificaciones</button></a></li>
+                            <li class="list-group-item"><a href="{{ route('show_pets',Auth::user()->id)}}" class="btn btn-info">Mis mascotas</a></li>
                         </ul>
                     </div>
                 </div>           
@@ -35,6 +36,7 @@
         </div>
     </div>
 </div>
+      
 
 @if((isset($reservations)))
 

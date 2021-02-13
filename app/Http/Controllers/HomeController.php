@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Pet;
 use App\Models\Visit;
 use App\Models\reservation;
+use App\Models\Service;
 use App\Models\Treatment;
 use \Carbon\Carbon;
 
@@ -44,6 +45,7 @@ class HomeController extends Controller
         $reservations->load('pet');
         $reservations->load('period');
         $reservations->load('service');
+        
         return view('home', compact('reservations'));
     }
 
@@ -69,8 +71,9 @@ class HomeController extends Controller
         return view('mascotas_Usuario', compact('pets'), compact('usuario'));
     }
     public function vaccines($pet){
+        $vaccine = Service::Select('id')->where('name','LIKE','%'.'acuna'.'%')->get();
         $treatments = Treatment::where('pet_id',$pet)
-        ->whereIn('id', Visit::select('treatment_id')->where('service_id','10')->get())->paginate(6);
+        ->whereIn('id', Visit::select('treatment_id')->whereIn('service_id',$vaccine)->get())->paginate(6);
         return view('vacunas', compact('treatments'));
     }
 }

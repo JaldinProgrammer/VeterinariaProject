@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Service;
+use App\Models\Pet;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -52,7 +53,6 @@ class AdminController extends Controller
         }   
         if ($rolsito == "clien") {
            $cliente = 1;;
-    
         } 
         if($request->file('photo')==null){
             $url = null;
@@ -144,4 +144,41 @@ class AdminController extends Controller
         }
     }
 
+    public function search_per_rol(Request $request){
+        if($request){
+            $veterinario = 0;
+            $administrador = 0;
+            $cliente = 0;
+            $rolsito = $request->get('rol');
+            if ($rolsito == "admin") {
+            $veterinario = 1;
+            $administrador = 1;   
+            }  
+            if ($rolsito == "veterinarian") {
+            $veterinario = 1;
+            }   
+            if ($rolsito == "customer") {
+            $cliente = 1;;
+            } 
+
+            $usuarios = User::where('available','=','1')->where('veterinarian',$veterinario)
+            ->where('customer',$cliente)->where('admin',$administrador)->paginate(15);
+            return view('datos_usuario')->with('usuarios',$usuarios);
+        }
+    }
+
+    public function all_Pets(){
+        $pets =  Pet::all();
+        return view('mostrar_todas_mascotas',compact('pets'));
+    }
+
+    public function see_Searched_Pets(Request $request){ // buscador de mascotas
+        if($request){
+            $query = trim($request->get('search'));
+            $pets = Pet::where('nombre','LIKE','%'.$query.'%')
+            ->orderBy('id','asc')->paginate(6);
+            $pets->load('user');
+            return view('mostrar_todas_mascotas',compact('pets'));
+        }
+    }
 }
