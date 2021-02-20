@@ -111,6 +111,9 @@
 
                                     </div>
                                 </li>
+                                <li class="nav-item">
+                                <a href="{{route('show_binnacle')}}" class="nav-link">Bitacora</a>
+                                </li>
                             @endif
                         @endguest
                             <li class="nav-item">

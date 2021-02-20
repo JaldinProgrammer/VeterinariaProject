@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Notification;
 use App\Models\Treatment;
 use \Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Binnacle;
 class NotificationController extends Controller
 {
     public function index($id){
@@ -21,6 +23,13 @@ class NotificationController extends Controller
             'message' => $request['message'],
             'eventDate' => $request['eventDate'],
             'treatment_id' => $request['treatment_id'],        
+        ]);
+        $notifi = $request['message'];
+        Binnacle::create([
+            'entity' => (strlen($notifi) >= 15)? substr($notifi,0,13)."...": $notifi,
+            'action' => "Insertó en",
+            'table' => "Notificacion",
+            'user_id'=> Auth::user()->id
         ]);
         $tratamiento = Treatment::findOrFail($request['treatment_id']);
         return redirect()->route('show_treatment', $tratamiento->pet_id);   
@@ -44,12 +53,26 @@ class NotificationController extends Controller
         $notification->message = $request->get('message');
         $notification->eventDate = $request->get('eventDate');
         $notification->update();
+        $notifi =  $request->get('message');
+        Binnacle::create([
+            'entity' => (strlen($notifi) >= 15)? substr($notifi,0,13)."...": $notifi,
+            'action' => "Actualizó en",
+            'table' => "Notificacion",
+            'user_id'=> Auth::user()->id
+        ]);
         return redirect()->route('see_all_notification', $notification->treatment_id);
     }
     public function delete($id){
         $notification = Notification::findOrFail($id);
+        $notifi =  $notification->message;
         $treatment = $notification->treatment_id;
-        $notification->delete();
+        $notification->delete();  
+        Binnacle::create([
+            'entity' => (strlen($notifi) >= 15)? substr($notifi,0,13)."...": $notifi,
+            'action' => "Eliminó en",
+            'table' => "Notificacion",
+            'user_id'=> Auth::user()->id
+        ]);
          return redirect()->route('see_all_notification', $treatment);
     }
     

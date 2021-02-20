@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Binnacle;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Expr\BinaryOp;
+use Illuminate\Support\Facades\Auth;
+
+
 class RegisterController extends Controller
 {
     /*
@@ -71,7 +76,6 @@ class RegisterController extends Controller
         $veterinario = 0;
         $administrador = 0;
         $cliente = 0;
-        //dd($data);
         if ($_REQUEST['rol'] == "admin") {
            $veterinario = 1;
            $administrador = 1;   
@@ -82,14 +86,14 @@ class RegisterController extends Controller
         if ($_REQUEST['rol'] == "clien") {
            $cliente = 1;
         } 
-        if (count($data)>=8){ // si es que el usuario puso su photo seran 8 espacios
+        if (count($data)>=9){ // si es que el usuario puso su photo seran 8 espacios
          $perfil = $data['photo']->store('public/Images');
          $url = Storage::url($perfil);
         }
         else{ // si es que photo esta vacias seran menos de 8s
             $url = null;
         }
-        return User::create([
+        $affected = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
@@ -99,6 +103,11 @@ class RegisterController extends Controller
             'photo' => $url,
             'password' => Hash::make($data['password']),
         ]);
-        
+        Binnacle::create([
+            'entity' => $affected->name,
+            'action' => "Insertó en",
+            'table' => "Usuarios",
+            'user_id'=> Auth::user()->id
+        ]);
     }
 }

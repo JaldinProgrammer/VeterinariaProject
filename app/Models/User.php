@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return  $this->hasMany('App\Models\Bargain');
     }
+
+    public function binnacles()
+    {
+        return  $this->hasMany('App\Models\Binnacle');
+    }
 }

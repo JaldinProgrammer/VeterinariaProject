@@ -12,6 +12,8 @@ use App\Models\Service;
 use App\Models\Treatment;
 use \Carbon\Carbon;
 
+
+
 class HomeController extends Controller
 {
     /**

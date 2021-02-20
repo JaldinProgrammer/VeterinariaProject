@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Binnacle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -69,9 +70,16 @@ class AdminController extends Controller
         $User->veterinarian =  $veterinario;
         $User->admin =  $administrador;
 
-
+        $affected = $User; 
         $User->update();
-
+        
+        Binnacle::create([
+            'entity' => $affected->name,
+            'action' => "Actualizó en",
+            'table' => "Usuarios",
+            'user_id'=>  Auth::user()->id
+        ]);
+        
         return redirect()->route('see_users');
     }
 
@@ -79,6 +87,12 @@ class AdminController extends Controller
         $User = User::findOrFail($id);
         $User->available = 0;
         $User->update();
+        Binnacle::create([
+            'entity' => $User->name,
+            'action' => "Eliminó en",
+            'table' => "Usuarios",
+            'user_id'=> Auth::user()->id
+        ]);
         return redirect()->route('see_users');
     }
 
@@ -86,6 +100,12 @@ class AdminController extends Controller
         $User = User::findOrFail($id);
         $User->available = 1;
         $User->update();
+        Binnacle::create([
+            'entity' => $User->name,
+            'action' => "Restauró en",
+            'table' => "Usuarios",
+            'user_id'=> Auth::user()->id
+        ]);
         return redirect()->route('see_Deleted_Users');
     }
 
@@ -104,11 +124,17 @@ class AdminController extends Controller
             'reservable' => $reservable,
             'available' => $available,
         ]);
+        Binnacle::create([
+            'entity' => $request['name'],
+            'action' => "Insertó en",
+            'table' => "Servicios",
+            'user_id'=> Auth::user()->id
+        ]);
         return redirect()->route('show_Services');
     }
 
     public function show_Services(){ // mostrar todos los servicios
-        $services = Service::paginate(5);
+        $services = Service::orderby('id','desc')->paginate(6);
         return view('mostrar_servicios',compact('services'));
     }
 
@@ -128,11 +154,17 @@ class AdminController extends Controller
         $services->reservable = $reservable; 
         $services->available = $available;
         $services->update();
+        Binnacle::create([
+            'entity' => $request['name'],
+            'action' => "Actualizó en",
+            'table' => "Servicios",
+            'user_id'=> Auth::user()->id
+        ]);
         return redirect()->route('show_Services');
     }
 
     public function delete_service($id){  // borrar servicio
-        $service = Service::findOrFail($id);
+        $servicio = $service = Service::findOrFail($id);
         if(($service->visits()->count()+ $service->reservations()->count() ) > 0){
             return back()->withErrors(['error' => 'Usted no puede borrar a este servicio 
             porque existen visitas ocupando este servicio, borre las visitas que involucran a este servicio
@@ -140,6 +172,12 @@ class AdminController extends Controller
         }
         else{
         $service->delete();
+        Binnacle::create([
+            'entity' => $servicio->name,
+            'action' => "Actualizó en",
+            'table' => "Servicios",
+            'user_id'=> Auth::user()->id
+        ]);
         return redirect()->route('show_Services');
         }
     }
@@ -167,8 +205,8 @@ class AdminController extends Controller
         }
     }
 
-    public function all_Pets(){
-        $pets =  Pet::all();
+    public function all_Pets(){ 
+        $pets =  Pet::orderby('id','desc')->paginate(10);
         return view('mostrar_todas_mascotas',compact('pets'));
     }
 

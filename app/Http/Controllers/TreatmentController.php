@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Pet;
 use App\Models\Treatment;
 use Illuminate\Http\Request;
-
+use App\Models\Binnacle;
+use Illuminate\Support\Facades\Auth;
 class TreatmentController extends Controller
 {
     public function __construct()
@@ -27,6 +28,13 @@ class TreatmentController extends Controller
             'enddate' => $request['enddate'],
             'pet_id' => $request['pet_id'],
         ]);
+        $reserv = $request['diagnostic'];
+        Binnacle::create([
+            'entity' => (strlen($reserv) >= 9)? substr($reserv,0,8)."...": $reserv,
+            'action' => "Insertó en",
+            'table' => "Tratamientos",
+            'user_id'=> Auth::user()->id
+            ]);   
         return redirect()->route('show_treatment',compact('pet'));
     }
 
@@ -53,6 +61,13 @@ class TreatmentController extends Controller
         $tratamiento->initdate = $request->get('initdate');
         $tratamiento->enddate = $request->get('enddate');
         $tratamiento->update();
+        $reserv = $request->get('diagnostic');
+        Binnacle::create([
+            'entity' => (strlen($reserv) >= 9)? substr($reserv,0,8)."...": $reserv,
+            'action' => "Actualizó en",
+            'table' => "Tratamientos",
+            'user_id'=> Auth::user()->id
+            ]);   
            return redirect()->route('show_treatment',$pet->id); 
     }
 
@@ -65,6 +80,13 @@ class TreatmentController extends Controller
         else{
         $pet = $tratamiento->pet_id;
         $tratamiento->delete();
+        $reserv =$tratamiento->diagnostic;
+        Binnacle::create([
+            'entity' => (strlen($reserv) >= 9)? substr($reserv,0,8)."...": $reserv,
+            'action' => "Eliminó en",
+            'table' => "Tratamientos",
+            'user_id'=> Auth::user()->id
+            ]);
         return redirect()->route('show_treatment',$pet);
         }
     }

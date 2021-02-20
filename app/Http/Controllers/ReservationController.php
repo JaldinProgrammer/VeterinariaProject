@@ -9,8 +9,8 @@ use App\Models\User;
 use App\Models\Reservation;
 use App\Models\Service;
 Use \Carbon\Carbon;
-use App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Binnacle;
 class ReservationController extends Controller
 {
     public function __construct()
@@ -53,6 +53,13 @@ class ReservationController extends Controller
             'period_id' => $request['period_id'],
             'service_id' => $request['service'],
         ]);
+        $reserv = $request['description'];
+        Binnacle::create([
+            'entity' => (strlen($reserv) >= 9)? substr($reserv,0,8)."...": $reserv,
+            'action' => "Insertó en",
+            'table' => "Reservaciones",
+            'user_id'=> Auth::user()->id
+            ]);   
         return redirect()->route('show_treatment',$request['pet_id']);
     }
 
@@ -69,6 +76,13 @@ class ReservationController extends Controller
         $user =    Pet::select('user_id')->where('id',$reservation->pet_id)->first();
         $reservation->active = 0;
         $reservation->update();
+        $reserv = $reservation->description;
+        Binnacle::create([
+            'entity' => (strlen($reserv) >= 9)? substr($reserv,0,8)."...": $reserv,
+            'action' => "Eliminó en",
+            'table' => "Reservaciones",
+            'user_id'=> Auth::user()->id
+            ]);   
         return redirect()->route('see_reservations',$user->user_id);
     }
 

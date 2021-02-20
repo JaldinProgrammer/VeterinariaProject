@@ -112,6 +112,7 @@
                                 </button>
                             </div>
                         </div>
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                     </form>
                 </div>
             </div>

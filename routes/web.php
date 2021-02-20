@@ -11,6 +11,8 @@ use App\Http\Controllers\VisitController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\BargainController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\BinnacleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,8 +102,8 @@ Route::post('actualizar_visita/{id}', [VisitController::class, 'update'])->name(
 Route::get('borrar_visita/{id}', [VisitController::class, 'destroy'])->name('delete_visit');
 
 Route::post('reservacion_mostrar/{id}', [ReservationController::class, 'show'])->name('show_periods');
-Route::get('registrar_reserva/{pet}/{period}/{date}', [ReservationController::class, 'register'])->name('register_reservation')->middleware('veterinarian');
-Route::post('crear_reservacion', [ReservationController::class, 'create'])->name('create_reservation')->middleware('veterinarian');
+Route::get('registrar_reserva/{pet}/{period}/{date}', [ReservationController::class, 'register'])->name('register_reservation');
+Route::post('crear_reservacion', [ReservationController::class, 'create'])->name('create_reservation');
 Route::get('mostrar_reservaciones', [ReservationController::class, 'show_all'])->name('show_all_reservations')->middleware('veterinarian');
 Route::get('desactivar_reservaciones/{id}', [ReservationController::class, 'inactive'])->name('inactive_reservation');
 Route::get('reservaciones/search', [ReservationController::class, 'search_per_date'])->name('search_per_date');
@@ -120,3 +122,5 @@ Route::get('notificaciones/ver_notificaciones/{id}', [NotificationController::cl
 Route::get('notificaciones/editar/{id}', [NotificationController::class, 'edit'])->name('edit_notification')->middleware('veterinarian');
 Route::post('notificaciones/actualizar/{id}', [NotificationController::class, 'update'])->name('update_notification')->middleware('veterinarian');
 Route::get('notificaciones/borrar/{id}', [NotificationController::class, 'delete'])->name('delete_notification')->middleware('veterinarian');
+
+Route::get('bitacora', [BinnacleController::class, 'index'])->name('show_binnacle');

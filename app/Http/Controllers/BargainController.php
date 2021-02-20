@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Bargain;
 use App\Models\User;
+use App\Models\Binnacle;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,7 @@ class BargainController extends Controller
     public function bargainForm(){
         return view('registrar_oferta');
     }
-    public function create(Request $request){
+    public function create(Request $request){ //crear oferta
          $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required'],
@@ -46,7 +47,12 @@ class BargainController extends Controller
             'user_id' => $request['user_id'],
             'photo' =>$url,            
         ]);
-        
+        Binnacle::create([
+            'entity' => $request['title'],
+            'action' => "Insertó en",
+            'table' => "Ofertas",
+            'user_id'=> Auth::user()->id
+        ]);
         return redirect()->route('all_bargains');
     }
     public function edit($id){
@@ -76,11 +82,24 @@ class BargainController extends Controller
         $bargain->user_id =   $request->get('user_id');  
         $bargain->photo = $url;
         $bargain->update();
+        Binnacle::create([
+            'entity' => $request->get('title'),
+            'action' => "Actualizó en",
+            'table' => "Ofertas",
+            'user_id'=> Auth::user()->id
+        ]);
         return redirect()->route('all_bargains');
     }
     public function destroy($id){
         $bargain = Bargain::findOrFail($id);
+        $oferta = $bargain;
         $bargain->delete();
+        Binnacle::create([
+            'entity' => $oferta->title,
+            'action' => "Actualizó en",
+            'table' => "Ofertas",
+            'user_id'=> Auth::user()->id
+        ]);
         return redirect()->route('all_bargains');
     }
 
