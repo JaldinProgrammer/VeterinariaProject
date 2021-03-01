@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/6bc26732f2.js" crossorigin="anonymous"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -25,7 +25,9 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
-                    Veterinaria vida 
+                    {{-- <i class="fas fa-frog"></i> --}}
+                    <img src="{{asset('./IconsWeb/paw.png')}}" alt="leon" width="30" height="30">
+                    Veterinaria vida                 
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -70,6 +72,11 @@
                                     <a class="dropdown-item" href="{{ route('see_users') }}">
                                      {{ "Todos los usuarios" }}
                                     </a>
+                                    <a class="dropdown-item" href="{{route('show_binnacle')}}" >Bitacora
+                                    </a>
+                                    <a href="{{route('register')}}" class="dropdown-item">Registrar nuevo usuario</a>
+                                    <a href="{{route('see_Deleted_Users')}}" class="dropdown-item">ver usuarios borrados</a>
+                            
                                 @endif 
                                 @endif        
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -111,9 +118,7 @@
 
                                     </div>
                                 </li>
-                                <li class="nav-item">
-                                <a href="{{route('show_binnacle')}}" class="nav-link">Bitacora</a>
-                                </li>
+                                
                             @endif
                         @endguest
                             <li class="nav-item">

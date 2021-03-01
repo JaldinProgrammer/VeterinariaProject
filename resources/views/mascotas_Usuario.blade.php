@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<h2> {{"Mascotas de : ". $usuario->name}}</h2>
 
 @if ($errors->count() > 0)
 <div class="alert alert-danger">
@@ -16,11 +15,15 @@
 <a href="{{route('registrar_pets',$usuario->id)}}" class="btn btn-info">Registrar nueva mascota</a>
 <br>
 @endif
+<div class="card">
+    <div class="card-header"> <b> {{ "Mascotas de : ". $usuario->name}} </b></div>
+<div class="card-body">
+<div class="table-responsive">
 <table class="table table-striped">
-    <thead>
+    <thead >
           <th>Nombre</th>
-          <th>Fecha de nacimiento</th>
-           <th>fecha de defuncion</th>
+          <th>Nacimiento</th>
+           <th>Defuncion</th>
           <th>Color</th>
           <th>Genero</th>
           <th>Especie</th>
@@ -28,7 +31,9 @@
           <th>Foto</th>
           <th>Reservaciones</th>
           @if(Auth::user()->veterinarian == 1)
-          <th>opciones</th>
+          <th>Opciones</th>
+          @else
+          <th>Vacunas</th>
           @endif
           
     </thead>
@@ -77,21 +82,25 @@
                             </div>
                             </div>
                     </td>
-                    <td>
-                    @if(Auth::user()->veterinarian == 1) 
                     
-                        @if(Auth::user()->admin == 1) 
-                        <a href="{{route('edit_pets',$pet->id)}}"><button type="button" class="btn btn-warning">Editar</button></a>        
-                        <a href="{{route('delete_pets',$pet->id)}}"><button type="button" class="btn btn-danger"  onclick="return confirm('Seguro que quiere eliminar esta mascota?')">Borrar</button></a>        
-                        @endif
-                        <a href="{{route('show_treatment',$pet->id)}}"><button type="button" class="btn btn-success">Historial clinico</button></a>        
-                    @else
-                    <a href="{{route('vaccines',$pet->id)}}"><button type="button" class="btn btn-success">Vacunas</button></a>                           
-                    @endif
+                    @if(Auth::user()->veterinarian == 1) 
+                    <td>
+                        @if(Auth::user()->admin == 1)                       
+                        <a href="{{route('edit_pets',$pet->id)}}"><button type="button" class="btn btn-warning">{{"configurar  "}} <i class="fas fa-cogs "></i></button></a>        
+                        <a href="{{route('delete_pets',$pet->id)}}"><button type="button" class="btn btn-danger"  onclick="return confirm('Seguro que quiere eliminar esta mascota?')">{{"Borrar  "}}<i class="fas fa-trash-alt "></i></button></a>                             
+                        @endif                  
+                        <a href="{{route('show_treatment',$pet->id)}}"><button type="button" class="btn btn-success">{{"Historial  "}} <i class="fas fa-clinic-medical "></i></button></a>        
                     </td>
+                    @else
+                    <td>
+                    <a href="{{route('vaccines',$pet->id)}}"><button type="button" class="btn "><img src="{{asset('./IconsWeb/vaccine.png')}}" alt="leon" width="35" height="35"></button></a>                           
+                    </td>
+                    @endif               
               </tr>
           @endforeach
     </tbody>
 </table>
+</div>
+</div>
 </div>
 @endsection

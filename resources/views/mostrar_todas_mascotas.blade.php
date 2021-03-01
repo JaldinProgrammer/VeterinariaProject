@@ -10,26 +10,24 @@
 </div>
 @endif
       {{-- BUSCADOR --}}
-      <form method="GET" class="form-inline ml-3" action="{{route('see_Searched_Pets')}}">
-            <div class="input-group input-group-sm">
-                  <input type="search" class="form-control form-control-navbar" name="search" placeholder="Nombre Usuario">
-                  <div class="input-group-append">
-                        <button class="btn btn-dark" type="submit"> Buscar</button>
-                  </div>
-            </div>
+      <div class="navbar navbar-light bg-light">
+      <form method="GET" class="form-inline" action="{{route('see_Searched_Pets')}}">
+                <input type="search" class="form-control mr-sm-2" name="search" placeholder="Mascota">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search-plus fa-lg"></i></button>
       </form>
+      </div>
 <table class="table table-striped">
     <thead>
           <th>Nombre</th>
           <th>Dueño</th>
-          <th>Fecha de nacimiento</th>
-           <th>fecha de defuncion</th>
+          <th>Nacimiento</th>
+          <th>Defuncion</th>
           <th>Color</th>
           <th>Genero</th>
           <th>Especie</th>
           <th>Raza</th>
           <th>Foto</th>
-          <th>Reservaciones</th>
+          <th>Reservar</th>
           <th>opciones</th> 
           <th>vacunas</th>   
     </thead>
@@ -80,12 +78,14 @@
                             </div>
                     </td>
                     <td>
-                    <a href="{{route('edit_pets',$pet->id)}}"><button type="button" class="btn btn-warning">Editar</button></a>        
-                    <a href="{{route('delete_pets',$pet->id)}}"><button type="button" class="btn btn-danger"  onclick="return confirm('Seguro que quiere eliminar esta mascota?')">Borrar</button></a> 
-                    <a href="{{route('show_treatment',$pet->id)}}"><button type="button" class="btn btn-success">Historial clinico</button></a>                             
+                        <a href="{{route('edit_pets',$pet->id)}}"><button type="button" class="btn btn-warning btn-sm btn-block"><i class="fas fa-cogs "></i></button></a>
+                        
+                        <a href="{{route('delete_pets',$pet->id)}}"><button type="button" class="btn btn-danger btn-sm btn-block"  onclick="return confirm('Seguro que quiere eliminar esta mascota?')"><i class="fas fa-trash-alt "></i></button></a>
+
+                        <a href="{{route('show_treatment',$pet->id)}}"><button type="button" class="btn btn-success btn-sm btn-block"><i class="fas fa-clinic-medical "></i></button></a>                       
                     </td>
                     <td>
-                    <a href="{{route('vaccines',$pet->id)}}"><button type="button" class="btn btn-success">|></button></a>      
+                    <a href="{{route('vaccines',$pet->id)}}"><button type="button" class="btn "><img src="{{asset('./IconsWeb/vaccine.png')}}" alt="leon" width="35" height="35"></button></a>      
                     </td>
               </tr>
           @endforeach

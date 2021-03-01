@@ -19,16 +19,16 @@
                         
                         <ul class="list-group list-group-flush">
                             @if(Auth::user()->photo)
-                            <li class="list-group-item"><img src="{{ asset(Auth::user()->photo)}}" class="img-fluid" alt="Responsive image" width="40" height="50"></li>
+                            <li class="list-group-item"><img src="{{ asset(Auth::user()->photo)}}" class="img-fluid" alt="Responsive image" width="100" height="80"></li>
                             @else
                             <li class="list-group-item"><img src="{{ asset('storage/Images/ImagenUsuarioDefault.jpg')}}" class="img-fluid" alt="Responsive image" width="60" height="70"></li>
                             @endif  
                             <li class="list-group-item">{{"Telefono: ".Auth::user()->phone}}</li>
                             <li class="list-group-item">{{"Email: ".Auth::user()->email}}</li>
                             <li class="list-group-item">{{"Rol: ". $rol}}</li>
-                            <li class="list-group-item"><a href="{{route('see_reservations',Auth::user()->id)}}"><button type="button" class="btn btn-primary">Ver mis reservas</button></a></li>
-                            <li class="list-group-item"><a href="{{route('see_notifications',Auth::user()->id)}}"><button type="button" class="btn btn-success">Ver mis notificaciones</button></a></li>
-                            <li class="list-group-item"><a href="{{ route('show_pets',Auth::user()->id)}}" class="btn btn-info">Mis mascotas</a></li>
+                            <li class="list-group-item"><a href="{{route('see_reservations',Auth::user()->id)}}"><button type="button" class="btn btn-info btn-lg btn-block"> <b>Mis reservas</b> <img src="{{asset('./IconsWeb/booking.png')}}" alt="mascotas" width="35" height="35"></button></a></li>
+                            <li class="list-group-item"><a href="{{route('see_notifications',Auth::user()->id)}}"><button type="button" class="btn btn-info btn-lg btn-block"> <b>Mis notificaciones</b> <img src="{{asset('./IconsWeb/notification.png')}}" alt="mascotas" width="35" height="35"></button></a></li>
+                            <li class="list-group-item"><a href="{{ route('show_pets',Auth::user()->id)}}" class="btn btn-info btn-lg btn-block"> <b>Mis mascotas</b> <img src="{{asset('./IconsWeb/paws.png')}}" alt="mascotas" width="35" height="35"></a></li>
                         </ul>
                     </div>
                 </div>           
@@ -67,7 +67,7 @@
                 <td>{{$reservation->period->begin->toTimeString()." - ".$reservation->period->end->toTimeString()}}</td>
                 <td>{{$reservation->service->name}}</td>
                 <td>
-                <a href="{{route('inactive_reservation',$reservation->id)}}"><button type="button" class="btn btn-danger" onclick="return confirm('Seguro que quiere desactivar su reserva? no podra recuperarla')">Borrar</button></a>                   
+                <a href="{{route('inactive_reservation',$reservation->id)}}"><button type="button" class="btn btn-danger" onclick="return confirm('Seguro que quiere desactivar su reserva? no podra recuperarla')"><i class="fas fa-trash-alt "></i></button></a>                   
                 </td>
             </tr> 
             @endforeach

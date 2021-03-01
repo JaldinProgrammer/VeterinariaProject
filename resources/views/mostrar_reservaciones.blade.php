@@ -12,14 +12,12 @@
 @endif
 
      {{-- BUSCADOR --}}
-<form method="GET" class="form-inline ml-3" action="{{route('search_per_date')}}">
-    <div class="input-group input-group-sm">
-        <input type="date" class="form-control form-control-navbar" name="search" placeholder="Nombre Usuario">
-                  <div class="input-group-append">
-                        <button class="btn btn-dark" type="submit"> Buscar</button>
-                  </div>
-    </div>
-</form>
+    <div class="navbar navbar-light bg-light">
+        <form method="GET" class="form-inline" action="{{route('search_per_date')}}">
+                <input type="date" class="form-control mr-sm-2" name="search" placeholder="Nombre Usuario">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search-plus fa-lg"></i></button>
+        </form>
+    </div>    
 
 <table class="table table-striped">
     <thead>
