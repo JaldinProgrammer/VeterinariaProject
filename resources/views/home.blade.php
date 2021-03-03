@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ "Inicio de: ".Auth::user()->name}}</div>
+                <div class="card-header"> <b> {{ "Inicio de: ".Auth::user()->name}} </b></div>
                         @php
                             $rol = "veterinario";
                             if(Auth::user()->customer){
@@ -17,18 +17,26 @@
                         @endphp
                     <div class="card-body">
                         
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush ">
                             @if(Auth::user()->photo)
-                            <li class="list-group-item"><img src="{{ asset(Auth::user()->photo)}}" class="img-fluid" alt="Responsive image" width="100%" height="100%"></li>
+                            <li class="list-group-item " style="text-align: center"><img src="{{ asset(Auth::user()->photo)}}" class="img-fluid " alt="Responsive image" width="200px" height="200px"  ></li>
                             @else
-                            <li class="list-group-item"><img src="{{ asset('storage/Images/ImagenUsuarioDefault.jpg')}}" class="img-fluid" alt="Responsive image" width="60" height="70"></li>
+                            <li class="list-group-item" style="text-align: center"><img src="{{ asset('storage/Images/ImagenUsuarioDefault.jpg')}}" class="img-fluid" alt="Responsive image" width="60" height="70"></li>
                             @endif  
-                            <li class="list-group-item">{{"Telefono: ".Auth::user()->phone}}</li>
-                            <li class="list-group-item">{{"Email: ".Auth::user()->email}}</li>
-                            <li class="list-group-item">{{"Rol: ". $rol}}</li>
+                            <li class="list-group-item" style="text-align: center">{{"Telefono: ".Auth::user()->phone}}</li>
+                            <li class="list-group-item" style="text-align: center">{{"Email: ".Auth::user()->email}}</li>
+                            <li class="list-group-item" style="text-align: center">{{"Rol: ". $rol}}</li>
+                            <li class="list-group-item" style="text-align: center">{{(Auth::user()->available)? "Estado: Activo ":"Estado: inactivo " }}
+                                 @if(Auth::user()->available)
+                                 <img src="{{asset('./IconsWeb/power.png')}}" alt="mascotas" width="35" height="35">
+                                 @else
+                                 <img src="{{asset('./IconsWeb/off.png')}}" alt="mascotas" width="35" height="35">
+                                 @endif
+                            </li>
                             <li class="list-group-item"><a href="{{route('see_reservations',Auth::user()->id)}}"><button type="button" class="btn btn-info  btn-lg btn-block"> <b>Mis reservas</b> <img src="{{asset('./IconsWeb/booking.png')}}" alt="mascotas" width="35" height="35"></button></a></li>
                             <li class="list-group-item"><a href="{{route('see_notifications',Auth::user()->id)}}"><button type="button" class="btn btn-info  btn-lg btn-block"> <b>Mis notificaciones</b> <img src="{{asset('./IconsWeb/notification.png')}}" alt="mascotas" width="35" height="35"></button></a></li>
                             <li class="list-group-item"><a href="{{ route('show_pets',Auth::user()->id)}}" class="btn btn-info  btn-lg btn-block"> <b>Mis mascotas</b> <img src="{{asset('./IconsWeb/paws.png')}}" alt="mascotas" width="35" height="35"></a></li>
+                            
                         </ul>
                     </div>
                 </div>           
