@@ -18,10 +18,11 @@
     <script src="https://kit.fontawesome.com/6bc26732f2.js" crossorigin="anonymous"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm ">
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm nav-bk3">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
@@ -45,7 +46,7 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link " href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
                             
@@ -91,7 +92,7 @@
                             </li>
                             @if (Auth::user()->admin)
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{route('home')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle " href="{{route('home')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Gestionar Mascota
                                 </a>
 
@@ -112,32 +113,34 @@
                                       Gestionar Atencion Al cliente
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                      <a class="dropdown-item" href="{{ route('show_Services') }}">Servicios</a>
-                                      <a class="dropdown-item" href="{{ route('all_bargains') }}">Ofertas</a>
-                                      <a class="dropdown-item" href="{{ route('show_all_reservations') }}">Ver reservas</a>
+                                      <a class="dropdown-item " href="{{ route('show_Services') }}">Servicios</a>
+                                      <a class="dropdown-item " href="{{ route('all_bargains') }}">Ofertas</a>
+                                      <a class="dropdown-item " href="{{ route('show_all_reservations') }}">Ver reservas</a>
 
                                     </div>
                                 </li>
                                 
                             @endif
                         @endguest
-                            <li class="nav-item">
-                            <a href="{{route('showAvailableBargains')}}" class="nav-link">Ofertas Disponibles</a>
+                            <li class="nav-item ">
+                            <a href="{{route('showAvailableBargains')}}" class="nav-link ">Ofertas Disponibles</a>
                             </li>
-                            <li class="nav-item">
-                            <a href="{{route('recomendaciones')}}" class="nav-link">Recomendaciones</a>
+                            <li class="nav-item ">
+                            <a href="{{route('recomendaciones')}}" class="nav-link ">Recomendaciones</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{route('contactanos')}}" class="nav-link">Contactanos</a>
+                            <li class="nav-item ">
+                                <a href="{{route('contactanos')}}" class="nav-link ">Contactanos</a>
                             </li>
                     </ul>
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
 </body>
+<footer class="foot">
+
+</footer>
 </html>

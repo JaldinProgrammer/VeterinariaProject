@@ -25,15 +25,6 @@ class UserSeeder extends Seeder
                 'admin' => '1',
                 'customer' => '0'
             ],
-             [
-                'name'=>'Raul Alberto Montano',
-                'email'=>'raulalbertoortizmontano@gmail.com',
-                'password'=>Hash::make('12345678'),
-                'phone'=>'78222772',
-                'veterinarian' => '1',
-                'admin' => '1',
-                'customer' => '0'
-             ],
               [
                 'name'=>'Valeria Coronado Arispe',
                 'email'=>'vc6337617@gmail.com',
