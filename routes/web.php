@@ -39,7 +39,7 @@ Auth::routes();
 Route::get('login/reservaciones', [VeterinarianController::class, 'reservation'])->name('reservation');
 Route::get('login/registro-mascotas', [VeterinarianController::class, 'pets_register'])->name('pets_register');
 Route::get('login/editar-mascotas/{id}', [VeterinarianController::class, 'edit_pets'])->name('edit_pets');
-Route::get('login/ver-usuarios-clientes', [VeterinarianController::class, 'see_Customers'])->name('see_Customers');
+Route::get('login/usuarios-clientes', [VeterinarianController::class, 'see_Customers'])->name('see_Customers');
 Route::get('login/ver-usuarios-encontrados', [VeterinarianController::class, 'see_Searched_Users'])->name('see_Searched_Users');
 Route::get('login/ver-usuarios-veterinarios', [VeterinarianController::class, 'see_Veterinarians'])->name('see_Veterinarians');
 

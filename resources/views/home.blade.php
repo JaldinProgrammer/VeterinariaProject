@@ -19,16 +19,16 @@
                         
                         <ul class="list-group list-group-flush">
                             @if(Auth::user()->photo)
-                            <li class="list-group-item"><img src="{{ asset(Auth::user()->photo)}}" class="img-fluid" alt="Responsive image" width="100" height="80"></li>
+                            <li class="list-group-item"><img src="{{ asset(Auth::user()->photo)}}" class="img-fluid" alt="Responsive image" width="100%" height="100%"></li>
                             @else
                             <li class="list-group-item"><img src="{{ asset('storage/Images/ImagenUsuarioDefault.jpg')}}" class="img-fluid" alt="Responsive image" width="60" height="70"></li>
                             @endif  
                             <li class="list-group-item">{{"Telefono: ".Auth::user()->phone}}</li>
                             <li class="list-group-item">{{"Email: ".Auth::user()->email}}</li>
                             <li class="list-group-item">{{"Rol: ". $rol}}</li>
-                            <li class="list-group-item"><a href="{{route('see_reservations',Auth::user()->id)}}"><button type="button" class="btn btn-info btn-lg btn-block"> <b>Mis reservas</b> <img src="{{asset('./IconsWeb/booking.png')}}" alt="mascotas" width="35" height="35"></button></a></li>
-                            <li class="list-group-item"><a href="{{route('see_notifications',Auth::user()->id)}}"><button type="button" class="btn btn-info btn-lg btn-block"> <b>Mis notificaciones</b> <img src="{{asset('./IconsWeb/notification.png')}}" alt="mascotas" width="35" height="35"></button></a></li>
-                            <li class="list-group-item"><a href="{{ route('show_pets',Auth::user()->id)}}" class="btn btn-info btn-lg btn-block"> <b>Mis mascotas</b> <img src="{{asset('./IconsWeb/paws.png')}}" alt="mascotas" width="35" height="35"></a></li>
+                            <li class="list-group-item"><a href="{{route('see_reservations',Auth::user()->id)}}"><button type="button" class="btn btn-info  btn-lg btn-block"> <b>Mis reservas</b> <img src="{{asset('./IconsWeb/booking.png')}}" alt="mascotas" width="35" height="35"></button></a></li>
+                            <li class="list-group-item"><a href="{{route('see_notifications',Auth::user()->id)}}"><button type="button" class="btn btn-info  btn-lg btn-block"> <b>Mis notificaciones</b> <img src="{{asset('./IconsWeb/notification.png')}}" alt="mascotas" width="35" height="35"></button></a></li>
+                            <li class="list-group-item"><a href="{{ route('show_pets',Auth::user()->id)}}" class="btn btn-info  btn-lg btn-block"> <b>Mis mascotas</b> <img src="{{asset('./IconsWeb/paws.png')}}" alt="mascotas" width="35" height="35"></a></li>
                         </ul>
                     </div>
                 </div>           

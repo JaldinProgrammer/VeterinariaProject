@@ -10,8 +10,8 @@
   <div class="container-fluid " >
     @foreach ($bargains as $bargain)
       <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
+        <div class="col-0 col-sm-4"></div>
+        <div class="col-12 col-sm-4">
             <div class="card" style="width: 100%;">
               @if($bargain->photo == NULL)
               <img src="{{ asset('storage/Images/ImagenOferta.jpg')}}" class="img-fluid" alt="Responsive image" width="100%" height="100%">                  

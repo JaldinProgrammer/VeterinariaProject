@@ -11,10 +11,15 @@
 </div>
 @endif
 @if(Auth::user()->admin == 1)
-<br>
-<a href="{{route('registrar_pets',$usuario->id)}}" class="btn btn-info">Registrar nueva mascota</a>
-<br>
+
+    <div class="container">
+        <div class="row">
+            <a href="{{route('registrar_pets',$usuario->id)}}" class="btn btn-info btn-lg btn-block">Registrar nueva mascota</a>
+        </div>
+    </div>
+
 @endif
+<br>
 <div class="card">
     <div class="card-header"> <b> {{ "Mascotas de : ". $usuario->name}} </b></div>
 <div class="card-body">

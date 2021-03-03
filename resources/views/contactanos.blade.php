@@ -4,7 +4,7 @@
       <h1><b>Contactanos</b></h1>
       .<div class="row">
             
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
                  <div class="card" style="width: 20rem;">
                         <img class="card-img-top" src="{{asset('ImagesWeb/tania.png')}}" alt="Card image cap">
                         <div class="card-body">
@@ -23,13 +23,15 @@
                         </div>
                   </div>      
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
                   <img src="{{asset('ImagesWeb/location.png')}}" alt="evita cargarlo" class="card-img-top" alt="Responsive image" >           
             </div>
       </div>
       <br>
       <div class="row">
+            <div class="col-12 col-sm-12">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.3929993708916!2d-63.14982611726079!3d-17.77321775664107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93f1e883d417a7a5%3A0xc42d06380372a165!2sCalle%20Diego%20Guerra%203495%2C%20Santa%20Cruz%20de%20la%20Sierra!5e0!3m2!1ses!2sbo!4v1614753122897!5m2!1ses!2sbo" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
       </div>
 </div>
 @endsection

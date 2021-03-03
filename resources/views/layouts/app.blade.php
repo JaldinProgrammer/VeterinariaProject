@@ -61,11 +61,12 @@
                                     <a class="dropdown-item" href="{{ route('home') }}">
                                      {{ "Perfil: ". Auth::user()->name }}
                                     </a>
-                                @if(Auth::user()->veterinarian)    
+                                @if(Auth::user()->veterinarian == 1)    
                                     
                                     <a class="dropdown-item" href="{{ route('see_Customers') }}">
                                      {{ "Clientes" }}
                                     </a>
+                                @endif    
                                 @if(Auth::user()->admin)    
                                     <a class="dropdown-item" href="{{ route('see_Veterinarians') }}">
                                      {{ "Veterinarios" }}
@@ -79,7 +80,7 @@
                                     <a href="{{route('see_Deleted_Users')}}" class="dropdown-item">ver usuarios borrados</a>
                             
                                 @endif 
-                                @endif        
+                                     
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -91,20 +92,20 @@
                                 </div>
                             </li>
                             @if (Auth::user()->admin)
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle " href="{{route('home')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Gestionar Mascota
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('all_Pets') }}">
-                                     {{ "Todas las Mascotas" }}
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle " href="{{route('home')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Gestionar Mascota
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('showBreeds') }}">Razas</a>
-                                    <a class="dropdown-item" href="{{ route('show_species') }}">Especies</a>
 
-                                </div>
-                            </li>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('all_Pets') }}">
+                                        {{ "Todas las Mascotas" }}
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('showBreeds') }}">Razas</a>
+                                        <a class="dropdown-item" href="{{ route('show_species') }}">Especies</a>
+
+                                    </div>
+                                </li>
                             @endif
                             @if (Auth::user()->admin)
   
@@ -119,8 +120,7 @@
 
                                     </div>
                                 </li>
-                                
-                            @endif
+                            @endif    
                         @endguest
                             <li class="nav-item ">
                             <a href="{{route('showAvailableBargains')}}" class="nav-link ">Ofertas Disponibles</a>
