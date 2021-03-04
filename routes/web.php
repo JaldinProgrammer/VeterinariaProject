@@ -124,3 +124,20 @@ Route::post('notificaciones/actualizar/{id}', [NotificationController::class, 'u
 Route::get('notificaciones/borrar/{id}', [NotificationController::class, 'delete'])->name('delete_notification')->middleware('veterinarian');
 
 Route::get('bitacora', [BinnacleController::class, 'index'])->name('show_binnacle');
+
+Route::get('storage/Images/{filename}', function ($filename)
+{
+    $path = storage_path('app/public/images/' . $filename);
+    
+    if (!File::exists($path)) {
+       abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+});
