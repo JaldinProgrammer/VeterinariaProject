@@ -34,7 +34,7 @@ class Pet extends Model
 
     public function treatments()
     {
-        return  $this->hasMany('App\Models\Treatment');
+        return  $this->hasMany('App\Models\treatment');
     }
     
     public function reservations()

@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Notification;
-use App\Models\Treatment;
+use App\Models\treatment;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Binnacle;
 class NotificationController extends Controller
 {
     public function index($id){
-        $tratamiento = Treatment::findOrFail($id);
+        $tratamiento = treatment::findOrFail($id);
         return view('registrar_notificacion',compact('tratamiento'));
     }
     public function create(Request $request){
@@ -31,12 +31,12 @@ class NotificationController extends Controller
             'table' => "Notificacion",
             'user_id'=> Auth::user()->id
         ]);
-        $tratamiento = Treatment::findOrFail($request['treatment_id']);
+        $tratamiento = treatment::findOrFail($request['treatment_id']);
         return redirect()->route('show_treatment', $tratamiento->pet_id);   
     }
     public function see_all($id){
        // $notifications = Notification::where('treatment_id', $id)->get();
-        $treatment = Treatment::findOrFail($id);
+        $treatment = treatment::findOrFail($id);
         $treatment->load('notifications');
         return view('mostrar_notificaciones', compact('treatment'));
     }
