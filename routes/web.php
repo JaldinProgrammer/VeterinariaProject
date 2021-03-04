@@ -127,7 +127,7 @@ Route::get('bitacora', [BinnacleController::class, 'index'])->name('show_binnacl
 
 Route::get('storage/Images/{filename}', function ($filename)
 {
-    $path = storage_path('app/public/images/' . $filename);
+    $path = storage_path('images/' . $filename);
     
     if (!File::exists($path)) {
        abort(404);
