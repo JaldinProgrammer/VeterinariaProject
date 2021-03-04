@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Treatment;
+use App\Models\treatment;
 use App\Models\Visit;
 use App\Models\Service;
 use \Carbon\Carbon;
@@ -18,14 +18,14 @@ class VisitController extends Controller
         Carbon::setLocale('es');
     }
     public function show_visits($id){
-        $treatment = Treatment::findOrFail($id);
+        $treatment = treatment::findOrFail($id);
         $visits = Visit::where('treatment_id','=',$id)
         ->orderby('date','ASC')->get()->load('user')->load('treatment');
         return view('mostrar_visitas',compact('visits'), compact('treatment'));
     }
 
     public function index($id){ //registrar visita
-        $treatment = Treatment::findOrFail($id);
+        $treatment = treatment::findOrFail($id);
         $services = Service::all();
         return view('registrar_visitas',compact('treatment'),compact('services'));
     }

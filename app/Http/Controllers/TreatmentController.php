@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Pet;
-use App\Models\Treatment;
+use App\Models\treatment;
 use Illuminate\Http\Request;
 use App\Models\Binnacle;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +22,7 @@ class TreatmentController extends Controller
             'initdate' => ['required'],
         ]);
         $pet = $request['pet_id'];
-        Treatment::create([
+        treatment::create([
             'diagnostic' => $request['diagnostic'],
             'initdate' => $request['initdate'],
             'enddate' => $request['enddate'],
@@ -41,12 +41,12 @@ class TreatmentController extends Controller
     public function show_treatment($pet){
        $pet = Pet::findOrFail($pet);
        //$treatments = $pet->treatments->load('pet');
-       $treatments = Treatment::where('pet_id','=',$pet->id)->orderby('initdate','DESC')->paginate(3);
+       $treatments = treatment::where('pet_id','=',$pet->id)->orderby('initdate','DESC')->paginate(3);
        return view('Historial_Tratamiento',compact('treatments'),compact('pet'));
     }
 
     public function edit_treatment($id){
-        $treatments = Treatment::findOrFail($id)->load('pet');
+        $treatments = treatment::findOrFail($id)->load('pet');
         return view('Editar_Tratamiento',compact('treatments'));
     }
 
@@ -55,7 +55,7 @@ class TreatmentController extends Controller
             'diagnostic' => ['required'],
             'initdate' => ['required'],
         ]);
-        $tratamiento = Treatment::findOrFail($id);
+        $tratamiento = treatment::findOrFail($id);
         $pet = Pet::findOrFail($tratamiento->pet_id);
         $tratamiento->diagnostic = $request->get('diagnostic');
         $tratamiento->initdate = $request->get('initdate');
@@ -72,7 +72,7 @@ class TreatmentController extends Controller
     }
 
     public function destroy($id){ //borrar tratamiento
-        $tratamiento = Treatment::findOrFail($id);
+        $tratamiento = treatment::findOrFail($id);
         if(($tratamiento->visits()->count() + $tratamiento->notifications()->count()) > 0){
             return back()->withErrors(['error' => 'Usted no puede borrar este tratamiento 
             porque cuenta con visitas o notificaciones dentro, porfavor primero borre las visitas y notificaciones']);

@@ -74,7 +74,7 @@ class HomeController extends Controller
     }
     public function vaccines($pet){
         $vaccine = Service::Select('id')->where('name','LIKE','%'.'acuna'.'%')->get();
-        $treatments = Treatment::where('pet_id',$pet)
+        $treatments = treatment::where('pet_id',$pet)
         ->whereIn('id', Visit::select('treatment_id')->whereIn('service_id',$vaccine)->get())->paginate(6);
         return view('vacunas', compact('treatments'));
     }
