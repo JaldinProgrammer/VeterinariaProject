@@ -53,7 +53,7 @@ class PetController extends Controller
             $url = null;
         }
         else{
-            $url = Storage::url($request->file('photo')->store('public/Images'));
+            $url = Storage::url($request->file('photo')->store('images'));
         }
         $sex = ($request['gender']=='macho')? 1:0;
         Pet::create([
