@@ -9,7 +9,7 @@ use App\Models\Pet;
 use App\Models\Visit;
 use App\Models\Reservation;
 use App\Models\Service;
-use App\Models\Treatment; 
+use App\Models\treatment; 
 use \Carbon\Carbon;
 
 
@@ -53,7 +53,7 @@ class HomeController extends Controller
 
     public function see_notifications($id){
         $pets = Pet::select('id')->where('user_id', $id)->get();
-        $treatments = Treatment::select('id')->whereIn('pet_id',$pets)->get();
+        $treatments = treatment::select('id')->whereIn('pet_id',$pets)->get();
         $notifications = Notification::whereIn('treatment_id', $treatments)->where('eventDate','>=', Carbon::now())
         ->orderby('eventDate', 'desc')->get();
         $notifications->load('treatment');
