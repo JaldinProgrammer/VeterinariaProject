@@ -27,7 +27,7 @@
            <tr>
                 <td>{{$bargain->title}}</td>
                             @if($bargain->photo == NULL)
-                            <td><img src="{{ asset('storage/Images/ImagenOferta.jpg')}}" class="img-fluid" alt="Responsive image" width="100" height="200">
+                            <td><img src="{{asset('imagenes/ImagenOferta.png')}}" class="img-fluid" alt="Responsive image" width="100" height="200">
                             </td>      
                             @else
                             <td><img src="{{ asset($bargain->photo)}}" class="img-fluid" alt="Responsive image" width="60" height="70">

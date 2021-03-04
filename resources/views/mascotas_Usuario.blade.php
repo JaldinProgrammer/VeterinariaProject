@@ -57,7 +57,7 @@
                     <td>{{$pet->breed->specie->name}}</td>
                     <td>{{$pet->breed->name}}</td>
                     @if($pet->photo == NULL)
-                    <td><img src="{{ asset('storage/Images/ImagenMascotaDefault.jpg')}}" class="img-fluid" alt="Responsive image" width="60" height="70">
+                    <td><img src="{{asset('imagenes/ImagenMascotaDefault.png')}}" class="img-fluid" alt="Responsive image" width="60" height="70">
                     </td>      
                     @else
                     <td><img src="{{ asset($pet->photo)}}" class="img-fluid" alt="Responsive image" width="60" height="70">

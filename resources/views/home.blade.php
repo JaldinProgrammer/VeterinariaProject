@@ -21,7 +21,7 @@
                             @if(Auth::user()->photo)
                             <li class="list-group-item " style="text-align: center"><img src="{{ asset(Auth::user()->photo)}}" class="img-fluid " alt="Responsive image" width="200px" height="200px"  ></li>
                             @else
-                            <li class="list-group-item" style="text-align: center"><img src="{{ asset('storage/Images/ImagenUsuarioDefault.jpg')}}" class="img-fluid" alt="Responsive image" width="60" height="70"></li>
+                            <li class="list-group-item" style="text-align: center"><img src="{{asset('./imagenes/user.png')}}" class="img-fluid" alt="Responsive image" width="60" height="70"></li>
                             @endif  
                             <li class="list-group-item" style="text-align: center">{{"Telefono: ".Auth::user()->phone}}</li>
                             <li class="list-group-item" style="text-align: center">{{"Email: ".Auth::user()->email}}</li>

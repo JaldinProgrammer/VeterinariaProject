@@ -14,7 +14,7 @@
         <div class="col-12 col-sm-4">
             <div class="card" style="width: 100%;">
               @if($bargain->photo == NULL)
-              <img src="{{ asset('storage/Images/ImagenOferta.jpg')}}" class="img-fluid" alt="Responsive image" width="100%" height="100%">                  
+              <img src="{{asset('imagenes/ImagenOferta.png')}}" class="img-fluid" alt="Responsive image" width="100%" height="100%">                  
               @else
               <img src="{{ asset($bargain->photo)}}" class="img-fluid" alt="Responsive image" >                
               @endif
