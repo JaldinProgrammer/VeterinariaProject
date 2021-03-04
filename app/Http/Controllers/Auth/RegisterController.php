@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\BinaryOp;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 
 class RegisterController extends Controller
@@ -27,8 +29,27 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    //use RegistersUsers;
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
 
+        event(new Registered($user = $this->create($request->all())));
+        //$this->guard()->login($user); //CARLOS NOTA: comente esto para que despues de registrarse el nuevo usuario no se loggee directamente
+        return redirect()->route('see_users'); // refirijo a la ruta see users
+        // if ($response = $this->registered($request, $user)) {
+        //     return $response;
+        // }
+
+        // return $request->wantsJson()
+        //             ? new JsonResponse([], 201)
+        //             : redirect($this->redirectPath());
+        //             //:redirect()
+    }
     /**
      * Where to redirect users after registration.
      *
