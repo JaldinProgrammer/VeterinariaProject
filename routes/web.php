@@ -125,19 +125,19 @@ Route::get('notificaciones/borrar/{id}', [NotificationController::class, 'delete
 
 Route::get('bitacora', [BinnacleController::class, 'index'])->name('show_binnacle');
 
-Route::get('storage/Images/{filename}', function ($filename)
-{
-    $path = storage_path('images/' . $filename);
+// Route::get('storage/Images/{filename}', function ($filename)
+// {
+//     $path = storage_path('images/' . $filename);
     
-    if (!File::exists($path)) {
-       abort(404);
-    }
+//     if (!File::exists($path)) {
+//        abort(404);
+//     }
 
-    $file = File::get($path);
-    $type = File::mimeType($path);
+//     $file = File::get($path);
+//     $type = File::mimeType($path);
 
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
+//     $response = Response::make($file, 200);
+//     $response->header("Content-Type", $type);
 
-    return $response;
-});
+//     return $response;
+// });
