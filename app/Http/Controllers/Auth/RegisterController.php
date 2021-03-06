@@ -108,7 +108,7 @@ class RegisterController extends Controller
            $cliente = 1;
         } 
         if (count($data)>=9){ // si es que el usuario puso su photo seran 8 espacios
-         $perfil = $data['photo']->store('public/Images');
+         $perfil = $data['photo']->store('public');
          $url = Storage::url($perfil);
         }
         else{ // si es que photo esta vacias seran menos de 8s
