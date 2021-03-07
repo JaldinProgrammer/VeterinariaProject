@@ -11,7 +11,7 @@
     
 </head>
 <body>
-    <h5 >Veterinaria vida <img src="{{asset('./IconsWeb/paw.png')}}" alt="pata" width="15" height="15"> </h5>
+    <h5 >Veterinaria vida </h5>
     <div class="card">
         <div class="card-body">
             <br>
