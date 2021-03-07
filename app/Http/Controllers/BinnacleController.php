@@ -13,7 +13,7 @@ class BinnacleController extends Controller
     }
 
     public function index(){
-        $binnacles = Binnacle::orderby('id','desc')->paginate(10);
+        $binnacles = Binnacle::orderby('id','desc')->paginate(16);
         $binnacles->load('user');
         return view('mostrar_bitacora', compact('binnacles'));
     }
