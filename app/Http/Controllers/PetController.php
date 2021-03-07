@@ -42,7 +42,7 @@ class PetController extends Controller
     {
        
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'nombre' => ['required', 'string', 'max:255'],
             'gender' => ['required'],
             'photo' => ['image','max:2048'],
             'birthdate' => ['required'],
