@@ -48,7 +48,7 @@ class PetController extends Controller
             'birthdate' => ['required'],
             'color' => ['required'],
         ]);
-            dd($request);
+        
         if($request->file('photo')==null){
             $url = null;
         }

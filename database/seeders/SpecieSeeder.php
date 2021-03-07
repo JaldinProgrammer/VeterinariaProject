@@ -22,16 +22,10 @@ class SpecieSeeder extends Seeder
                 'name'=>'Gato',
             ],            
             [
-                'name'=>'Pez',
+                'name'=>'Hamster',
             ],            
             [
-                'name'=>'Ave',
-            ],            
-            [
-                'name'=>'Conejo',
-            ],            
-            [
-                'name'=>'Serpiente',
+                'name'=>'Pajaro',
             ]
         ]);
     }
