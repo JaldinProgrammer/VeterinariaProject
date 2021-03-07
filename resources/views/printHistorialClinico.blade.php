@@ -21,7 +21,7 @@
             <p class="card-text">Nacimiento: {{$pet->birthdate}} </p>
             <p class="card-text">Genero: {{$pet->breed->name}} </p>
             <br>
-            <a href="https://veterinariavida1sistemas.herokuapp.com/login/ver-usuarios" target="_blank" class="btn btn-primary">{{"Visitanos <3"}} </a>
+            <a href="https://veterinariavida1sistemas.herokuapp.com/" target="_blank" class="btn btn-primary">{{"Visitanos <3"}} </a>
         </div>
     </div>
     <div class="container">
