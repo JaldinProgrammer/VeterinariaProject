@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-    <link rel="shortcut icon" type="image/png" href="{{asset('./IconsWeb/paw.png')}}">
+    
 </head>
 <body>
     <h5 >Veterinaria vida <img src="{{asset('./IconsWeb/paw.png')}}" alt="pata" width="15" height="15"> </h5>

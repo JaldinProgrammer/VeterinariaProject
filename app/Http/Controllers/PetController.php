@@ -42,7 +42,12 @@ class PetController extends Controller
     {
        
         $request->validate([
-            
+            'nombre' => ['required', 'string', 'max:255'],
+            'gender' => ['required'],
+            'photo' => ['image','max:2048'],
+            'birthdate' => ['required'],
+            'color' => ['required'],
+            'breed' => ['required'],
         ]);
         
         if($request->file('photo')==null){
