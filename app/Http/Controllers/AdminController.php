@@ -44,8 +44,6 @@ class AdminController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['string'],
             'photo' => ['image','max:2048'],
             'rol' => ['required']
@@ -81,7 +79,6 @@ class AdminController extends Controller
         }
         $User->name = $request->get('name');
         $User->photo = $url;
-        $User->email = $request->get('email');
         $User->phone = $request->get('phone');
         $User->customer =  $cliente;
         $User->veterinarian =  $veterinario;
