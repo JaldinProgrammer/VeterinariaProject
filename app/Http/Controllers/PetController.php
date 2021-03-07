@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Binnacle;
-
+use Illuminate\Support\Facades\Http;
 
 class PetController extends Controller
 {
@@ -48,12 +48,22 @@ class PetController extends Controller
             'birthdate' => ['required'],
             'color' => ['required'],
         ]);
-
+            dd($request);
         if($request->file('photo')==null){
             $url = null;
         }
         else{
-            $url = Storage::url($request->file('photo')->store('public/Images'));
+            //$url = Storage::url($request->file('photo')->store('public/Images'));
+        $photo = fopen($request->file('photo'),'r');
+        $file = $request->file('photo');
+        $file_name = time() . $file->getClientOriginalName();
+        $response = Http::attach(
+            'file',
+            $photo,
+            $file_name
+        )->post('https://fileapp.quokasoft.com/api/store');
+            $url = $response;
+            $url = substr($url, 1, strlen($url)-2); // quitando las comillas
         }
         $sex = ($request['gender']=='macho')? 1:0;
         Pet::create([
@@ -88,7 +98,16 @@ class PetController extends Controller
             $url = null;
         }
         else{
-            $url = Storage::url($request->file('photo')->store('public/Images'));
+        $photo = fopen($request->file('photo'),'r');
+        $file = $request->file('photo');
+        $file_name = time() . $file->getClientOriginalName();
+        $response = Http::attach(
+            'file',
+            $photo,
+            $file_name
+        )->post('https://fileapp.quokasoft.com/api/store');
+            $url = $response;
+            $url = substr($url, 1, strlen($url)-2); // quitando las comillas
         }
         $sex = ($request['gender']=='macho')? 1:0;
 

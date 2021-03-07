@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -9,8 +9,6 @@ use App\Models\Binnacle;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
-use PhpParser\Node\Expr\BinaryOp;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -107,9 +105,20 @@ class RegisterController extends Controller
         if ($_REQUEST['rol'] == "clien") {
            $cliente = 1;
         } 
+        
         if (count($data)>=9){ // si es que el usuario puso su photo seran 8 espacios
-         $perfil = $data['photo']->store('public/Images');
-         $url = Storage::url($perfil);
+        //  $perfil = $data['photo']->store('public/Images');
+        //  $url = Storage::url($perfil);
+        $photo = fopen($data['photo'],'r');
+        $file = $data['photo'];
+        $file_name = time() . $file->getClientOriginalName();
+        $response = Http::attach(
+            'file',
+            $photo,
+            $file_name
+        )->post('https://fileapp.quokasoft.com/api/store');
+            $url = $response;
+            $url = substr($url, 1, strlen($url)-2); // quitando las comillas
         }
         else{ // si es que photo esta vacias seran menos de 8s
             $url = null;

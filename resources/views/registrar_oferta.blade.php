@@ -49,7 +49,7 @@
                         </div>
                         {{-- note --}}
                         <div class="form-group row">
-                            <label for="note" class="col-md-4 col-form-label text-md-right">{{ __('Contenido') }}</label>
+                            <label for="note" class="col-md-4 col-form-label text-md-right">{{ __('Nota') }}</label>
                             <div class="col-md-6">
                                 <input id="note" type="text" class="form-control @error('note') is-invalid @enderror" name="note" value="{{ old('note') }}" >
                                 @error('note')

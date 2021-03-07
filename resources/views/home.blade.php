@@ -19,7 +19,7 @@
                         
                         <ul class="list-group list-group-flush ">
                             @if(Auth::user()->photo)
-                            <li class="list-group-item " style="text-align: center"><img src="{{ asset(Auth::user()->photo)}}" class="img-fluid " alt="Responsive image" width="200px" height="200px"  ></li>
+                            <li class="list-group-item " style="text-align: center"><img src="{{'https://fileapp.quokasoft.com/get/'.Auth::user()->photo}}" class="img-fluid " alt="Responsive image" width="200px" height="200px"  ></li>
                             @else
                             <li class="list-group-item" style="text-align: center"><img src="{{asset('./imagenes/user.png')}}" class="img-fluid" alt="Responsive image" width="60" height="70"></li>
                             @endif  

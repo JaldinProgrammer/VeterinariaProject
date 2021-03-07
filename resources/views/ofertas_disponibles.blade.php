@@ -16,7 +16,7 @@
               @if($bargain->photo == NULL)
               <img src="{{asset('imagenes/ImagenOferta.png')}}" class="img-fluid" alt="Responsive image" width="100%" height="100%">                  
               @else
-              <img src="{{ asset($bargain->photo)}}" class="img-fluid" alt="Responsive image" >                
+              <img src="{{'https://fileapp.quokasoft.com/get/'.$bargain->photo}}" class="img-fluid" alt="Responsive image" >                
               @endif
               <div class="card-body">
                 <h5 class="card-title"> <b> {{$bargain->title}} </b></h5>

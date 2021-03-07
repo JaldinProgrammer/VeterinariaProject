@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Binnacle;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class BargainController extends Controller
 {
@@ -36,7 +37,17 @@ class BargainController extends Controller
             $url = null;
         }
         else{
-            $url = Storage::url($request->file('photo')->store('public/Images'));
+            //$url = Storage::url($request->file('photo')->store('public/Images'));
+        $photo = fopen($request->file('photo'),'r');
+        $file = $request->file('photo');
+        $file_name = time() . $file->getClientOriginalName();
+        $response = Http::attach(
+            'file',
+            $photo,
+            $file_name
+        )->post('https://fileapp.quokasoft.com/api/store');
+            $url = $response;
+            $url = substr($url, 1, strlen($url)-2); // quitando las comillas
         }
         Bargain::create([
             'title' => $request['title'],
@@ -72,7 +83,17 @@ class BargainController extends Controller
             $url = null;
         }
         else{
-            $url = Storage::url($request->file('photo')->store('public/Images'));
+            //$url = Storage::url($request->file('photo')->store('public/Images'));
+        $photo = fopen($request->file('photo'),'r');
+        $file = $request->file('photo');
+        $file_name = time() . $file->getClientOriginalName();
+        $response = Http::attach(
+            'file',
+            $photo,
+            $file_name
+        )->post('https://fileapp.quokasoft.com/api/store');
+            $url = $response;
+            $url = substr($url, 1, strlen($url)-2); // quitando las comillas
         }
         $bargain->title = $request->get('title');
         $bargain->body = $request->get('body');

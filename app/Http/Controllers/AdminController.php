@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Service;
 use App\Models\Pet;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class AdminController extends Controller
 {
@@ -59,8 +60,16 @@ class AdminController extends Controller
             $url = null;
         }
         else{
-         $perfil =$request->file('photo')->store('public/Images');
-         $url = Storage::url($perfil);
+        $photo = fopen($request->file('photo'),'r');
+        $file = $request->file('photo');
+        $file_name = time() . $file->getClientOriginalName();
+        $response = Http::attach(
+            'file',
+            $photo,
+            $file_name
+        )->post('https://fileapp.quokasoft.com/api/store');
+            $url = $response;
+            $url = substr($url, 1, strlen($url)-2); // quitando las comillas
         }
         $User->name = $request->get('name');
         $User->photo = $url;

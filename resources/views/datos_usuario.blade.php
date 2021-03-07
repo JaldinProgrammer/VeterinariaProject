@@ -30,7 +30,7 @@
                               <td><img src="{{asset('./imagenes/user.png')}}" class="img-fluid" alt="Responsive image" width="60" height="70">
                               </td>      
                               @else
-                              <td><img src="{{ asset($usuario->photo)}}" class="img-fluid" alt="Responsive image" width="60" height="70">
+                              <td><img src="{{'https://fileapp.quokasoft.com/get/'.$usuario->photo}}" class="img-fluid" alt="Responsive image" width="60" height="70">
                               </td>
                               @endif
                               
