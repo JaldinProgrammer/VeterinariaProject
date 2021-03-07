@@ -92,4 +92,5 @@
     </tbody>
 </table>
 </div>
+<div class="table table-striped">{{$pets->links()}}</div>
 @endsection
