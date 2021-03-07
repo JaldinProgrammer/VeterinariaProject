@@ -21,7 +21,7 @@
                             <td><img src="{{asset('./imagenes/user.png')}}" class="img-fluid" alt="Responsive image" width="60" height="70">
                             </td>      
                             @else
-                            <td><img src="{{'https://fileapp.quokasoft.com/get/'.$usuario->photo}}" class="img-fluid" alt="Responsive image" width="60" height="70">
+                            <td><img src="{{'https://fileapp.quokasoft.com/get/'.$usuario->photo}}" class="img-fluid" style="border-radius: 50%" alt="Responsive image" width="60" height="70">
                             </td>
                             @endif                            
                             @if ($usuario->veterinarian == 1 && $usuario->admin == 0) 

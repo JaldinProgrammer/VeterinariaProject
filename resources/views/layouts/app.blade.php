@@ -28,7 +28,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                     {{-- <i class="fas fa-frog"></i> --}}
-                    <img src="{{asset('./IconsWeb/paw.png')}}" alt="leon" width="30" height="30">
+                    <img src="{{asset('./IconsWeb/paw.png')}}" alt="pata" width="30" height="30">
                     Veterinaria vida                 
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

@@ -47,6 +47,7 @@ class PetController extends Controller
             'photo' => ['image','max:2048'],
             'birthdate' => ['required'],
             'color' => ['required'],
+            'breed_id' => ['required'],
         ]);
         
         if($request->file('photo')==null){

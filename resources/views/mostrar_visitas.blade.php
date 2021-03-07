@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<h1>{{"TRATAMIENTO: ".$treatment->diagnostic}}</h1>
-<a href="{{route('register_visit',$treatment->id)}}"><button type="button" class="btn btn-success">Nueva visita</button></a>        
+<div class="container">
+<h5>{{"TRATAMIENTO: ".$treatment->diagnostic}}</h5>
+<a href="{{route('register_visit',$treatment->id)}}"><button type="button" class="btn btn-success">Nueva visita</button></a>
+</div>
+        
 <table class="table table-striped">
     <thead>
           <th>Descripcion</th>

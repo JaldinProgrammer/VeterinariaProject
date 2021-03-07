@@ -93,6 +93,8 @@ Route::post('Crear_tratamiento', [TreatmentController::class, 'create'])->name('
 Route::get('Editar_tratamiento/{id}', [TreatmentController::class, 'edit_treatment'])->name('edit_treatment');
 Route::post('Actualizar_tratamiento/{id}', [TreatmentController::class, 'update_treatment'])->name('update_treatment');
 Route::get('Borrar_tratamiento/{id}', [TreatmentController::class, 'destroy'])->name('destroy_treatment');
+Route::get('Imprimir_Historial/{id}', [TreatmentController::class, 'print'])->name('print_Historial');
+
 
 Route::get('mostrar_visita/{id}', [VisitController::class, 'show_visits'])->name('show_visits');
 Route::get('registrar_visita/{id}', [VisitController::class, 'index'])->name('register_visit');

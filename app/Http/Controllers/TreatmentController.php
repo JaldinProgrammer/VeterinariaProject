@@ -6,12 +6,25 @@ use App\Models\treatment;
 use Illuminate\Http\Request;
 use App\Models\Binnacle;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 class TreatmentController extends Controller
 {
     public function __construct()
     {
+        Carbon::setLocale('es');
         $this->middleware('veterinarian');
     }
+
+    public function print($id){
+        $pet = Pet::findOrFail($id);
+        $pet = $pet->load('breed');
+        $pet = $pet->load('user');
+        $treatments = treatment::where('pet_id','=',$pet->id)->orderby('initdate','DESC')->get();
+        $pdf = \PDF::loadView('printHistorialClinico', compact('treatments'), compact('pet'));
+        $pdfName = $pet->nombre. Carbon::now().'Historial.pdf';
+        return $pdf->stream($pdfName);
+    }
+
     public function index($id){
         $pet = Pet::findOrFail($id);
         return view('registrar_tratamiento')->with('pet',$pet);
@@ -38,19 +51,19 @@ class TreatmentController extends Controller
         return redirect()->route('show_treatment',compact('pet'));
     }
 
-    public function show_treatment($pet){
+    public function show_treatment($pet){ // mostrar tratamiento
        $pet = Pet::findOrFail($pet);
        //$treatments = $pet->treatments->load('pet');
        $treatments = treatment::where('pet_id','=',$pet->id)->orderby('initdate','DESC')->paginate(3);
        return view('Historial_Tratamiento',compact('treatments'),compact('pet'));
     }
 
-    public function edit_treatment($id){
+    public function edit_treatment($id){ //editar tratamiento
         $treatments = treatment::findOrFail($id)->load('pet');
         return view('Editar_Tratamiento',compact('treatments'));
     }
 
-    public function update_treatment(Request $request, $id){
+    public function update_treatment(Request $request, $id){ // actualizar tratamiento
         $request->validate([
             'diagnostic' => ['required'],
             'initdate' => ['required'],
